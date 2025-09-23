@@ -36,7 +36,6 @@ if (!isset($_SESSION['A_Username'])) {
         <div class="menu">
              <div class="card"><a href="manage_HOME.php">📅 จัดการ HOME</a></div> 
             <div class="card"><a href="manage_COURSE.php">📘 จัดการ COURSE</a></div>
-            <div class="card"><a href="manage_users.php">👤 จัดการผู้ใช้ระบบ</a></div>  
         </div>
 
         <a href="logout.php" class="logout">🚪 ออกจากระบบ</a>
