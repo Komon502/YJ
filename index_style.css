@@ -1,0 +1,178 @@
+/* ================= HERO ================= */
+.hero {
+  background: #111;
+  color: #fff;
+  text-align: center;
+  padding: 100px 20px;
+}
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ff5733;
+}
+.hero p {
+  font-size: 1.1rem;
+  color: #ddd;
+  margin-top: 10px;
+}
+
+/* ================= Event Section ================= */
+.container h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ff9800;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Grid (กรณี event < 3) */
+.event-grid {
+  display: flex;
+  justify-content: center;  /* จัดกลาง */
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* ================= Card ================= */
+.event-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  transition: 0.3s;
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+}
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+}
+
+/* Image */
+.event-img-box {
+  position: relative;
+  height: 180px;
+}
+.event-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Ribbon */
+.ribbon {
+  position: absolute;
+  top: 12px;
+  left: -5px;
+  background: #28a745;
+  color: #fff;
+  padding: 5px 15px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  border-radius: 0 5px 5px 0;
+}
+
+/* Tag */
+.tag {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #1a237e;
+  color: #fff;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 5px;
+}
+
+/* Price / Date */
+.price {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(0,0,0,0.7);
+  color: #00e676;
+  font-size: 0.9rem;
+  padding: 4px 10px;
+  border-radius: 5px;
+}
+
+/* ================= Content ================= */
+.event-content {
+  padding: 12px;
+}
+.event-content h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #333;
+}
+.event-content .location {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 8px;
+}
+.event-content .detail {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+/* ================= Footer ================= */
+.event-footer {
+  padding: 8px 12px;
+  background: #f9f9f9;
+  border-top: 1px solid #eee;
+  font-size: 0.8rem;
+  color: #555;
+  text-align: center;
+}
+
+/* ================= Swiper ================= */
+.swiper {
+  width: 100%;
+  padding: 20px 0;
+  position: relative;
+}
+.swiper-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #fff;
+  background: rgba(0,0,0,0.4);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: rgba(0,0,0,0.7);
+  color: #ff9800;
+}
+.swiper-button-prev { left: 10px; }
+.swiper-button-next { right: 10px; }
+
+.swiper-pagination {
+  bottom: 10px !important;
+}
+.swiper-pagination-bullet {
+  background: #ff9800;
+  opacity: 0.7;
+}
+.swiper-pagination-bullet-active {
+  background: #ff5733;
+  opacity: 1;
+}

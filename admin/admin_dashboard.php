@@ -34,10 +34,8 @@ if (!isset($_SESSION['A_Username'])) {
         <p class="welcome">สวัสดีคุณ, <strong><?php echo $_SESSION['A_Username']; ?></strong> 👋</p>
 
         <div class="menu">
-             <div class="card"><a href="manage_HOME.php">📅 จัดการ HOME</a></div>
-             <div class="card"><a href="manage_ABOUT.php">📰 จัดการ ABOUT</a></div>   
+             <div class="card"><a href="manage_HOME.php">📅 จัดการ HOME</a></div> 
             <div class="card"><a href="manage_COURSE.php">📘 จัดการ COURSE</a></div>
-            <div class="card"><a href="manage_CONTACT.php">🖥️ จัดการ CONTACT</a></div>
             <div class="card"><a href="manage_users.php">👤 จัดการผู้ใช้ระบบ</a></div>  
         </div>
 

@@ -1,0 +1,107 @@
+body {
+    font-family: 'Prompt', sans-serif;
+    margin: 0;
+    background: #000;
+    color: #fff;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: rgba(17, 17, 17, 0.95);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar .logo img {
+    height: 50px;
+}
+
+.navbar .menu {
+    display: flex;
+    gap: 30px;
+}
+
+.navbar .menu a {
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #fff;
+    transition: color 0.3s;
+}
+.navbar .menu a:hover {
+    color: #ff5733;
+}
+
+.navbar .login a {
+    background: #ff5733;
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 25px;
+    text-decoration: none;
+}
+.navbar .login a:hover {
+    background: #ea6344;
+}
+
+/* Hero Section */
+.hero {
+    padding: 100px 20px;
+    background: url('../image/bg2.jpg') no-repeat center center/cover;
+    position: relative;
+    text-align: center;
+}
+.hero h1 {
+  color: #ff5733;
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+.hero p {
+  font-size: 1.1rem;
+  color: #ddd;
+}
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+.hero-content h1 {
+    font-size: 3rem;
+    font-family: 'Montserrat', sans-serif;
+    color: #ff5733;
+    margin-bottom: 15px;
+}
+.hero-content p {
+    color: #ddd;
+    max-width: 700px;
+    margin: auto;
+}
+
+/* Layout */
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+main {
+    flex: 1;
+}
+
+/* Footer */
+footer {
+    background: #111;
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+    color: #aaa;
+    margin-top: auto;
+}
