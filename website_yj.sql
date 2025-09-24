@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 23, 2025 at 08:56 PM
+-- Generation Time: Sep 24, 2025 at 10:30 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -92,11 +92,13 @@ CREATE TABLE `event` (
 --
 
 INSERT INTO `event` (`EventID`, `E_Title`, `E_Detail`, `E_StartDate`, `E_EndDate`, `E_Location`, `E_Image`) VALUES
-(11, 'Kids Market ', '-', '2025-09-27', '2025-09-28', 'The Mall Korat Creator Contest', '1758648048_kidmarket.jpg'),
-(14, 'Kids Market', '-', '2025-09-22', '2025-09-26', 'The Mall Korat Creator Contest', '1758651018_kidmarket.jpg'),
-(15, 'Kids Market', '-', '2025-09-01', '2025-09-23', 'The Mall Korat Creator Contest', '1758651038_kidmarket.jpg'),
-(16, 'Kids Market', '-', '2025-09-17', '2025-09-22', 'The Mall Korat Creator Contest', '1758652097_kidmarket.jpg'),
-(17, 'Kids Market', '-', '2025-09-24', '2025-09-25', 'The Mall Korat Creator Contest', '1758652122_kidmarket.jpg');
+(23, 'Music Band Show', '6', '2025-08-23', '2025-08-24', 'The Mall Korat Creator Contest', '1758701587_Music Band Show.jpg'),
+(24, 'ํ๋YJ Show', '6', '2025-09-25', '2025-09-29', 'The Mall Korat Creator Contest', '1758701777_YJ Show.jpg'),
+(29, 'Kids Market', '6', '2025-09-25', '2025-09-29', 'The Mall Korat Creator Contest', '1758701853_kidmarket.jpg'),
+(30, 'BMW', 'BMW', '2025-09-25', '2025-09-26', 'The Mall Korat Creator Contest', '1758701901_R.jpg'),
+(31, 'Feature1', '6', '2025-10-01', '2025-10-07', 'The Mall Korat Creator Contest', '1758701935_Feature1.jpg'),
+(33, 'Owner', '6', '2025-09-16', '2025-10-30', 'The Mall Korat Creator Contest', '1758702017_owner.jpg'),
+(34, 'bg1', '6', '2025-10-29', '2025-11-12', 'The Mall Korat Creator Contest', '1758702055_bg1.jpg');
 
 --
 -- Indexes for dumped tables
@@ -141,7 +143,7 @@ ALTER TABLE `course`
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `EventID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `EventID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
