@@ -8,9 +8,9 @@ if (!isset($_SESSION['A_Username'])) {
     exit();
 }
 
-// ถ้าไม่มี id → กลับไป manage_event.php
+// ถ้าไม่มี id → กลับไป manage_HOME.php
 if (!isset($_GET['id'])) {
-    header("Location: manage_event.php");
+    header("Location: manage_HOME.php");
     exit();
 }
 
@@ -24,7 +24,6 @@ if (!$event) {
 }
 
 $error = "";
-$success = "";
 
 // ✅ UPDATE Event
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -36,8 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $image = $event['E_Image'];
     if (!empty($_FILES['image']['name'])) {
-        $targetDir = "uploads/";
-        if (!is_dir($targetDir)) mkdir($targetDir);
+        $targetDir = __DIR__ . "/../uploads/";
+        if (!is_dir($targetDir)) mkdir($targetDir, 0777, true);
+
         $fileName = time() . "_" . basename($_FILES['image']['name']);
         $targetFile = $targetDir . $fileName;
 
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             WHERE EventID=$id";
 
     if (mysqli_query($conn, $sql)) {
-        header("Location: manage_event.php?msg=updated");
+        header("Location: manage_HOME.php?msg=updated");
         exit();
     } else {
         $error = "❌ Error: " . mysqli_error($conn);
@@ -61,107 +61,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
     <meta charset="UTF-8">
     <title>แก้ไขอีเว้นท์ - YJ</title>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            background: #000;
-            font-family: 'Prompt', sans-serif;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            padding: 40px 15px;
-        }
-
-        .form-card {
-            background: #111;
-            padding: 40px;
-            border-radius: 20px;
-            max-width: 700px;
-            width: 100%;
-            margin: auto;
-            box-shadow: 0 6px 20px rgba(255, 87, 51, 0.3);
-        }
-
-        .form-card h2 {
-            text-align: center;
-            color: #ff5733;
-            margin-bottom: 25px;
-            font-weight: 700;
-            text-shadow: 0 0 10px rgba(255, 87, 51, 0.5);
-        }
-
-        .form-control {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            color: #fff;
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 18px;
-        }
-
-        .form-control:focus {
-            border-color: #ff5733;
-            box-shadow: 0 0 10px rgba(255, 87, 51, 0.7);
-        }
-
-        textarea.form-control {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        label {
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-
-        .btn-submit {
-            background: linear-gradient(45deg, #ff9800, #f57c00);
-            border: none;
-            padding: 12px;
-            border-radius: 25px;
-            font-weight: 600;
-            width: 100%;
-            margin-top: 10px;
-            color: #fff;
-            transition: 0.3s;
-        }
-
-        .btn-submit:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-
-        .btn-back {
-            background: #555;
-            padding: 10px 20px;
-            border-radius: 25px;
-            color: #fff;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 15px;
-        }
-
-        .btn-back:hover {
-            background: #777;
-        }
-
-        .event-img {
-            width: 160px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-top: 10px;
-        }
+        body { background:#000; font-family:'Prompt', sans-serif; color: #fff; display:flex; justify-content:center; padding:40px 15px;}
+        .form-card { background:#111; padding:40px; border-radius:20px; max-width:700px; width:100%; box-shadow:0 6px 20px rgba(255,87,51,0.3);}
+        .form-card h2 { text-align:center; color:#ff5733; margin-bottom:25px; font-weight:700; text-shadow:0 0 10px rgba(255,87,51,0.5);}
+        .form-control { background:#1a1a1a; border:1px solid #333; color:#fff; border-radius:10px; padding:12px; margin-bottom:18px;}
+        .form-control:focus { border-color:#ff5733; box-shadow:0 0 10px rgba(255,87,51,0.7);}
+        textarea.form-control { min-height:120px; resize:vertical;}
+        label { font-weight:600; margin-bottom:6px; }
+        .btn-submit { background:linear-gradient(45deg,#ff9800,#f57c00); border:none; padding:12px; border-radius:25px; font-weight:600; width:100%; color:#fff; transition:0.3s;}
+        .btn-submit:hover { opacity:0.9; transform:translateY(-2px);}
+        .btn-back { background:#555; padding:10px 20px; border-radius:25px; color:#fff; text-decoration:none; display:inline-block; margin-top:15px;}
+        .btn-back:hover { background:#777;}
+        .event-img { width:160px; height:100px; object-fit:cover; border-radius:10px; margin-top:10px;}
     </style>
 </head>
-
 <body>
     <div class="form-card">
         <h2>✏️ แก้ไขอีเว้นท์</h2>
@@ -181,23 +100,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <input type="date" name="end_date" class="form-control" value="<?= $event['E_EndDate'] ?>" required>
                 </div>
             </div>
-
             <label>สถานที่</label>
             <input type="text" name="location" class="form-control" value="<?= htmlspecialchars($event['E_Location']) ?>" required>
-
-            <br>
-
+<br>
             <label>รายละเอียด</label>
             <br>
             <textarea name="detail" class="form-control" required><?= htmlspecialchars($event['E_Detail']) ?></textarea>
-            <br>
+<br>
             <label>รูปภาพปัจจุบัน</label><br>
-            <?php if ($event['E_Image']) { ?>
-                <img src="uploads/<?= $event['E_Image'] ?>" class="event-img">
-            <?php } else {
-                echo "<p>❌ ไม่มีรูปภาพ</p>";
-            } ?>
-            <br>
+            <?php if ($event['E_Image'] && file_exists(__DIR__ . "/../uploads/" . $event['E_Image'])) { ?>
+                <img src="../uploads/<?= $event['E_Image'] ?>" class="event-img">
+            <?php } else { ?>
+                <p>❌ ไม่มีรูปภาพ</p>
+            <?php } ?>
+<br>
             <label>อัปโหลดรูปใหม่ (ถ้าต้องการเปลี่ยน)</label>
             <input type="file" name="image" class="form-control">
 
@@ -206,5 +122,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </form>
     </div>
 </body>
-
 </html>

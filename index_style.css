@@ -28,7 +28,7 @@
 /* Grid (กรณี event < 3) */
 .event-grid {
   display: flex;
-  justify-content: center;  /* จัดกลาง */
+  justify-content: center;  
   align-items: center;
   gap: 20px;
   flex-wrap: wrap;

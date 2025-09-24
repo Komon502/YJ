@@ -1,6 +1,14 @@
 <?php
 include 'navbar.php';
 include 'db_connect.php';
+
+// ฟังก์ชันเช็ค path ของรูป
+function getImagePath($fileName) {
+  if (!empty($fileName) && file_exists(__DIR__ . "/uploads/" . $fileName)) {
+    return "uploads/" . $fileName;
+  }
+  return "image/no-image.png";
+}
 ?>
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="index_style.css">
@@ -16,103 +24,38 @@ include 'db_connect.php';
 <!-- EVENT SECTION -->
 <section class="container my-5">
   <h2 class="text-center mb-4 text-warning">📅 Event</h2>
-
   <?php
-  $query = mysqli_query($conn, "SELECT * FROM event ORDER BY E_StartDate DESC LIMIT 6");
-  $count = mysqli_num_rows($query);
+  $query = mysqli_query($conn, "SELECT * FROM event 
+                              WHERE E_EndDate >= NOW() 
+                              ORDER BY E_StartDate ASC 
+                              LIMIT 6");
 
-  if ($count > 0) {
-    if ($count >= 3) {
-      // ใช้ Swiper ถ้า event >= 3
-      echo '<div class="swiper mySwiper"><div class="swiper-wrapper">';
-      while ($row = mysqli_fetch_assoc($query)) {
+  if (mysqli_num_rows($query) > 0) {
+    echo '<div class="event-grid">';
+    while ($row = mysqli_fetch_assoc($query)) {
+      $imgPath = getImagePath($row['E_Image']);
   ?>
-        <div class="swiper-slide">
-          <div class="event-card">
-            <!-- รูป -->
-            <div class="event-img-box">
-              <img src="./uploads/<?php echo $row['E_Image']; ?>"
-                alt="event-image" class="event-img"
-                onerror="this.src='image/no-image.png'">
-              <span class="ribbon">ใหม่</span>
-              <span class="tag">กิจกรรม</span>
-              <span class="price">
-                <?php echo date("d M", strtotime($row['E_StartDate'])); ?> -
-                <?php echo date("d M", strtotime($row['E_EndDate'])); ?>
-              </span>
-            </div>
-
-            <!-- เนื้อหา -->
-            <div class="event-content">
-              <h3><?php echo htmlspecialchars($row['E_Title']); ?></h3>
-              <p class="location"><i class="fas fa-map-marker-alt"></i>
-                <?php echo htmlspecialchars($row['E_Location']); ?>
-              </p>
-              <p class="detail">
-                <?php
-                $detail = !empty($row['E_Detail']) ? $row['E_Detail'] : "ไม่มีรายละเอียด";
-                echo mb_strimwidth($detail, 0, 60, "...");
-                ?>
-              </p>
-            </div>
-
-            <!-- Footer -->
-            <div class="event-footer">
-              <a href="event_detail.php?id=<?php echo $row['EventID']; ?>"
-                class="btn btn-warning btn-sm text-dark fw-bold rounded-pill px-3">
-                ดูรายละเอียด
-              </a>
-            </div>
-          </div>
+      <div class="event-card">
+        <div class="event-img-box">
+          <img src="<?= $imgPath ?>" alt="event-image" class="event-img">
+          <span class="ribbon">ใหม่</span>
+          <span class="tag">กิจกรรม</span>
+          <span class="price">
+            <?= date("d M", strtotime($row['E_StartDate'])) ?> -
+            <?= date("d M", strtotime($row['E_EndDate'])) ?>
+          </span>
         </div>
-      <?php
-      }
-      echo '</div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-          </div>';
-    } else {
-      // ถ้า event < 3 ใช้ grid ธรรมดา
-      echo '<div class="event-grid">';
-      mysqli_data_seek($query, 0);
-      while ($row = mysqli_fetch_assoc($query)) {
-      ?>
-        <div class="event-card">
-          <div class="event-img-box">
-            <img src="./uploads/<?php echo $row['E_Image']; ?>"
-              alt="event-image" class="event-img"
-              onerror="this.src='image/no-image.png'">
-            <span class="ribbon">ใหม่</span>
-            <span class="tag">กิจกรรม</span>
-            <span class="price">
-              <?php echo date("d M", strtotime($row['E_StartDate'])); ?> -
-              <?php echo date("d M", strtotime($row['E_EndDate'])); ?>
-            </span>
-          </div>
-          <div class="event-content">
-            <h3><?php echo htmlspecialchars($row['E_Title']); ?></h3>
-            <p class="location"><i class="fas fa-map-marker-alt"></i>
-              <?php echo htmlspecialchars($row['E_Location']); ?>
-            </p>
-            <p class="detail">
-              <?php
-              $detail = !empty($row['E_Detail']) ? $row['E_Detail'] : "ไม่มีรายละเอียด";
-              echo mb_strimwidth($detail, 0, 60, "...");
-              ?>
-            </p>
-          </div>
-          <div class="event-footer">
-            <a href="event_detail.php?id=<?php echo $row['EventID']; ?>"
-              class="btn btn-warning btn-sm text-dark fw-bold rounded-pill px-3">
-              ดูรายละเอียด
-            </a>
-          </div>
+        <div class="event-content">
+          <h3><?= htmlspecialchars($row['E_Title']) ?></h3>
+          <p class="location"><?= htmlspecialchars($row['E_Location']) ?></p>
+          <p class="detail"><?= mb_strimwidth($row['E_Detail'] ?: "ไม่มีรายละเอียด", 0, 60, "..."); ?></p>
         </div>
+        <div class="event-footer">
+        </div>
+      </div>
   <?php
-      }
-      echo '</div>';
     }
+    echo '</div>';
   } else {
     echo "<p class='text-center text-muted'>ยังไม่มีอีเว้นท์</p>";
   }
@@ -120,32 +63,3 @@ include 'db_connect.php';
 </section>
 
 <?php include 'footer.php'; ?>
-
-<!-- Swiper -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-<script>
-  var swiper = new Swiper(".mySwiper", {
-    slidesPerView: 3,
-    spaceBetween: 25,
-    loop: true,
-    autoplay: {
-      delay: 4000,
-      disableOnInteraction: false,
-    },
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-    breakpoints: {
-      0: { slidesPerView: 1 },
-      768: { slidesPerView: 2 },
-      1200: { slidesPerView: 3 }
-    }
-  });
-</script>
