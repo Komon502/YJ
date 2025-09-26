@@ -1,125 +1,92 @@
 <?php
-session_start();
-include 'db_connect.php';
-
-// ถ้าไม่ได้ login → กลับไป login.php
-if (!isset($_SESSION['A_Username'])) {
-    header("Location: login.php");
-    exit();
-}
-
-// ถ้าไม่มี id → กลับไป manage_HOME.php
-if (!isset($_GET['id'])) {
-    header("Location: manage_HOME.php");
-    exit();
-}
+include __DIR__ . '/auth.php';
+include __DIR__ . '/../db_connect.php';
 
 $id = intval($_GET['id']);
-$result = mysqli_query($conn, "SELECT * FROM event WHERE EventID=$id");
-$event = mysqli_fetch_assoc($result);
-
-if (!$event) {
-    echo "❌ ไม่พบอีเว้นท์";
-    exit();
-}
-
 $error = "";
+$success = "";
 
-// ✅ UPDATE Event
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $title    = mysqli_real_escape_string($conn, $_POST['title']);
-    $detail   = mysqli_real_escape_string($conn, $_POST['detail']);
-    $start    = mysqli_real_escape_string($conn, $_POST['start_date']);
-    $end      = mysqli_real_escape_string($conn, $_POST['end_date']);
-    $location = mysqli_real_escape_string($conn, $_POST['location']);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $title = mysqli_real_escape_string($conn, $_POST['E_Title']);
+    $detail = mysqli_real_escape_string($conn, $_POST['E_Detail']);
+    $start = $_POST['E_StartDate'];
+    $end = $_POST['E_EndDate'];
+    $location = mysqli_real_escape_string($conn, $_POST['E_Location']);
 
-    $image = $event['E_Image'];
-    if (!empty($_FILES['image']['name'])) {
+    $image = $_POST['old_image'];
+    if (!empty($_FILES['E_Image']['name'])) {
         $targetDir = __DIR__ . "/../uploads/";
-        if (!is_dir($targetDir)) mkdir($targetDir, 0777, true);
-
-        $fileName = time() . "_" . basename($_FILES['image']['name']);
+        $fileName = time() . "_" . basename($_FILES['E_Image']['name']);
         $targetFile = $targetDir . $fileName;
 
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
+        if (move_uploaded_file($_FILES['E_Image']['tmp_name'], $targetFile)) {
             $image = $fileName;
         }
     }
 
     $sql = "UPDATE event 
-            SET E_Title='$title', E_Detail='$detail', E_StartDate='$start', 
-                E_EndDate='$end', E_Location='$location', E_Image='$image' 
+            SET E_Title='$title', E_Detail='$detail', E_StartDate='$start', E_EndDate='$end',
+                E_Location='$location', E_Image='$image', status='pending'
             WHERE EventID=$id";
 
     if (mysqli_query($conn, $sql)) {
-        header("Location: manage_HOME.php?msg=updated");
-        exit();
+        $success = "✅ แก้ไข Event สำเร็จ (รอ Owner อนุมัติ)";
     } else {
-        $error = "❌ Error: " . mysqli_error($conn);
+        $error = "❌ เกิดข้อผิดพลาด: " . mysqli_error($conn);
     }
 }
+
+$result = mysqli_query($conn, "SELECT * FROM event WHERE EventID=$id");
+$event = mysqli_fetch_assoc($result);
 ?>
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <title>แก้ไขอีเว้นท์ - YJ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { background:#000; font-family:'Prompt', sans-serif; color: #fff; display:flex; justify-content:center; padding:40px 15px;}
-        .form-card { background:#111; padding:40px; border-radius:20px; max-width:700px; width:100%; box-shadow:0 6px 20px rgba(255,87,51,0.3);}
-        .form-card h2 { text-align:center; color:#ff5733; margin-bottom:25px; font-weight:700; text-shadow:0 0 10px rgba(255,87,51,0.5);}
-        .form-control { background:#1a1a1a; border:1px solid #333; color:#fff; border-radius:10px; padding:12px; margin-bottom:18px;}
-        .form-control:focus { border-color:#ff5733; box-shadow:0 0 10px rgba(255,87,51,0.7);}
-        textarea.form-control { min-height:120px; resize:vertical;}
-        label { font-weight:600; margin-bottom:6px; }
-        .btn-submit { background:linear-gradient(45deg,#ff9800,#f57c00); border:none; padding:12px; border-radius:25px; font-weight:600; width:100%; color:#fff; transition:0.3s;}
-        .btn-submit:hover { opacity:0.9; transform:translateY(-2px);}
-        .btn-back { background:#555; padding:10px 20px; border-radius:25px; color:#fff; text-decoration:none; display:inline-block; margin-top:15px;}
-        .btn-back:hover { background:#777;}
-        .event-img { width:160px; height:100px; object-fit:cover; border-radius:10px; margin-top:10px;}
-    </style>
+  <meta charset="UTF-8">
+  <title>แก้ไข Event</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="form-card">
-        <h2>✏️ แก้ไขอีเว้นท์</h2>
-        <?php if (!empty($error)) echo "<div class='alert alert-danger'>$error</div>"; ?>
+<body class="bg-dark text-white">
+<div class="container py-5">
+  <h1 class="text-warning">✏️ แก้ไข Event</h1>
 
-        <form method="post" enctype="multipart/form-data">
-            <label>ชื่ออีเว้นท์</label>
-            <input type="text" name="title" class="form-control" value="<?= htmlspecialchars($event['E_Title']) ?>" required>
+  <?php if ($error) echo "<div class='alert alert-danger'>$error</div>"; ?>
+  <?php if ($success) echo "<div class='alert alert-success'>$success</div>"; ?>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <label>วันที่เริ่ม</label>
-                    <input type="date" name="start_date" class="form-control" value="<?= $event['E_StartDate'] ?>" required>
-                </div>
-                <div class="col-md-6">
-                    <label>วันที่สิ้นสุด</label>
-                    <input type="date" name="end_date" class="form-control" value="<?= $event['E_EndDate'] ?>" required>
-                </div>
-            </div>
-            <label>สถานที่</label>
-            <input type="text" name="location" class="form-control" value="<?= htmlspecialchars($event['E_Location']) ?>" required>
-<br>
-            <label>รายละเอียด</label>
-            <br>
-            <textarea name="detail" class="form-control" required><?= htmlspecialchars($event['E_Detail']) ?></textarea>
-<br>
-            <label>รูปภาพปัจจุบัน</label><br>
-            <?php if ($event['E_Image'] && file_exists(__DIR__ . "/../uploads/" . $event['E_Image'])) { ?>
-                <img src="../uploads/<?= $event['E_Image'] ?>" class="event-img">
-            <?php } else { ?>
-                <p>❌ ไม่มีรูปภาพ</p>
-            <?php } ?>
-<br>
-            <label>อัปโหลดรูปใหม่ (ถ้าต้องการเปลี่ยน)</label>
-            <input type="file" name="image" class="form-control">
-
-            <button type="submit" class="btn-submit">บันทึกการแก้ไข</button>
-            <a href="manage_HOME.php" class="btn-back">⬅ กลับ</a>
-        </form>
+  <form method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label>ชื่อ Event</label>
+      <input type="text" name="E_Title" class="form-control" value="<?= htmlspecialchars($event['E_Title']) ?>" required>
     </div>
+    <div class="mb-3">
+      <label>รายละเอียด</label>
+      <textarea name="E_Detail" class="form-control" required><?= htmlspecialchars($event['E_Detail']) ?></textarea>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label>วันที่เริ่ม</label>
+        <input type="date" name="E_StartDate" class="form-control" value="<?= $event['E_StartDate'] ?>" required>
+      </div>
+      <div class="col-md-6">
+        <label>วันที่สิ้นสุด</label>
+        <input type="date" name="E_EndDate" class="form-control" value="<?= $event['E_EndDate'] ?>" required>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label>สถานที่</label>
+      <input type="text" name="E_Location" class="form-control" value="<?= htmlspecialchars($event['E_Location']) ?>" required>
+    </div>
+    <div class="mb-3">
+      <label>รูปภาพ</label><br>
+      <?php if ($event['E_Image']) { ?>
+        <img src="../uploads/<?= $event['E_Image'] ?>" width="120" class="mb-2"><br>
+      <?php } ?>
+      <input type="hidden" name="old_image" value="<?= $event['E_Image'] ?>">
+      <input type="file" name="E_Image" class="form-control" accept="image/*">
+    </div>
+    <button type="submit" class="btn btn-success">บันทึก</button>
+    <a href="manage_HOME.php" class="btn btn-secondary">⬅ กลับไปจัดการ Event</a>
+  </form>
+</div>
 </body>
 </html>

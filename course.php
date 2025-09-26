@@ -5,8 +5,8 @@ $result = mysqli_query($conn, $sql);
 ?>
 
 <?php include 'navbar.php'; ?>
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="course_style.css">
+<link rel="stylesheet" href="public/style.css">
+<link rel="stylesheet" href="public/course_style.css">
 
 <section class="hero">
   <div class="hero-content">

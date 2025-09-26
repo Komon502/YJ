@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="public/style.css">
 
 <header>
   <div class="navbar">
@@ -14,8 +14,5 @@
       <a href="course.php">COURSE</a>
       <a href="contact.php">CONTACT</a>
     </nav>
-    <div class="login">
-      <a href="admin/login.php">LOGIN</a>
-    </div>
   </div>
 </header>

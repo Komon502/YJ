@@ -1,6 +1,7 @@
 <?php
-include 'navbar.php';
-include 'db_connect.php';
+// เชื่อมต่อส่วน navbar และฐานข้อมูล
+include __DIR__ . '/navbar.php';
+include __DIR__ . '/db_connect.php';
 
 // ฟังก์ชันเช็ค path ของรูป
 function getImagePath($fileName) {
@@ -10,10 +11,11 @@ function getImagePath($fileName) {
   return "image/no-image.png";
 }
 ?>
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="index_style.css">
+<!-- ================= CSS ================= -->
+<link rel="stylesheet" href="public/style.css">
+<link rel="stylesheet" href="public/index_style.css">
 
-<!-- HERO -->
+<!-- ================= HERO ================= -->
 <section class="hero">
   <div class="hero-content">
     <h1>YJ Creating</h1>
@@ -21,14 +23,15 @@ function getImagePath($fileName) {
   </div>
 </section>
 
-<!-- EVENT SECTION -->
+<!-- ================= EVENT SECTION ================= -->
 <section class="container my-5">
   <h2 class="text-center mb-4 text-warning">📅 Event</h2>
   <?php
   $query = mysqli_query($conn, "SELECT * FROM event 
-                              WHERE E_EndDate >= NOW() 
-                              ORDER BY E_StartDate ASC 
-                              LIMIT 6");
+                                WHERE E_EndDate >= NOW() 
+                                  AND status='approved'
+                                ORDER BY E_StartDate ASC 
+                                LIMIT 6");
 
   if (mysqli_num_rows($query) > 0) {
     echo '<div class="event-grid">';
@@ -48,18 +51,20 @@ function getImagePath($fileName) {
         <div class="event-content">
           <h3><?= htmlspecialchars($row['E_Title']) ?></h3>
           <p class="location"><?= htmlspecialchars($row['E_Location']) ?></p>
-          <p class="detail"><?= mb_strimwidth($row['E_Detail'] ?: "ไม่มีรายละเอียด", 0, 60, "..."); ?></p>
+          <p class="detail">
+            <?= mb_strimwidth($row['E_Detail'] ?: "ไม่มีรายละเอียด", 0, 60, "..."); ?>
+          </p>
         </div>
-        <div class="event-footer">
-        </div>
+        <div class="event-footer"></div>
       </div>
   <?php
     }
     echo '</div>';
   } else {
-    echo "<p class='text-center text-muted'>ยังไม่มีอีเว้นท์</p>";
+    echo "<p class='text-center text-muted'>⏳ รอ Owner อนุมัติ หรือยังไม่มีอีเว้นท์</p>";
   }
   ?>
 </section>
 
-<?php include 'footer.php'; ?>
+<!-- ================= FOOTER ================= -->
+<?php include __DIR__ . '/footer.php'; ?>

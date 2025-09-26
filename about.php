@@ -1,6 +1,6 @@
 <?php include 'navbar.php'; ?>
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="about_style.css">
+<link rel="stylesheet" href="public/style.css">
+<link rel="stylesheet" href="public/about_style.css">
 
 <main>
   <!-- HERO -->
