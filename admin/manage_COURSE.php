@@ -44,101 +44,101 @@ $result = mysqli_query($conn, "SELECT * FROM course ORDER BY CourseID DESC");
 ?>
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="UTF-8">
   <title>จัดการคอร์ส</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body { background:#0b0b0b; color:#f5f5f5; font-family:'Prompt', sans-serif; }
-    .container { max-width:1100px; margin:auto; padding:40px 15px; }
-    h1 { color:#ff7043; text-align:center; margin-bottom:25px; }
-    .card { background:#1e1e1e; padding:25px; border-radius:15px; margin-bottom:30px; }
-    label { color:#ffcc80; font-weight:600; margin-top:12px; }
-    .form-control { background:#2b2b2b; border:1px solid #555; color:#fff; }
-    .btn-success { background:linear-gradient(45deg,#4caf50,#2e7d32); border:none; }
-    .btn-back { background:#6c757d; border:none; }
-    .btn-back:hover { background:#5a6268; }
-    table { background:#222; border-radius:12px; overflow:hidden; }
-    th { background:#ff7043; text-align:center; }
-    td { text-align:center; vertical-align:middle; }
-    small { color:#ccc; }
-  </style>
+  <link rel="stylesheet" href="public/admin_course.css">
 </head>
+
 <body>
-<div class="container">
-  <h1>📘 จัดการคอร์ส</h1>
-  <a href="admin_dashboard.php" class="btn btn-back mb-3">⬅ กลับแดชบอร์ด</a>
+  <div class="container">
+    <h1>📘 จัดการคอร์ส</h1>
+    <a href="admin_dashboard.php" class="btn btn-back mb-3">⬅ กลับแดชบอร์ด</a>
 
-  <!-- Add Course -->
-  <div class="card">
-    <h4>➕ เพิ่มคอร์สใหม่</h4>
-    <?php if ($error) echo "<div class='alert alert-danger'>$error</div>"; ?>
-    <?php if ($success) echo "<div class='alert alert-success'>$success</div>"; ?>
-    <form method="post" enctype="multipart/form-data">
-      <label>ชื่อคอร์ส</label>
-      <input type="text" name="CourseName" class="form-control" required>
-      <label>หมวดหมู่</label>
-      <input type="text" name="Category" class="form-control" required>
-      <label>รายละเอียด</label>
-      <textarea name="Description" class="form-control" required></textarea>
-      <div class="row">
-        <div class="col-md-6">
-          <label>ระยะเวลา</label>
-          <input type="text" name="Duration" class="form-control" required>
+    <!-- Add Course -->
+    <div class="card">
+      <h4>➕ เพิ่มคอร์สใหม่</h4>
+      <?php if ($error) echo "<div class='alert alert-danger'>$error</div>"; ?>
+      <?php if ($success) echo "<div class='alert alert-success'>$success</div>"; ?>
+      <form method="post" enctype="multipart/form-data">
+        <label>ชื่อคอร์ส</label>
+        <input type="text" name="CourseName" class="form-control" required>
+        <label>หมวดหมู่</label>
+        <input type="text" name="Category" class="form-control" required>
+        <label>รายละเอียด</label>
+        <textarea name="Description" class="form-control" required></textarea>
+        <div class="row">
+          <div class="col-md-6">
+            <label>ระยะเวลา</label>
+            <input type="text" name="Duration" class="form-control" required>
+          </div>
+          <div class="col-md-6">
+            <label>ราคา</label>
+            <input type="number" step="0.01" name="Fee" class="form-control" required>
+          </div>
         </div>
-        <div class="col-md-6">
-          <label>ราคา</label>
-          <input type="number" step="0.01" name="Fee" class="form-control" required>
-        </div>
-      </div>
-      <label>ครูผู้สอน</label>
-      <input type="text" name="Teacher" class="form-control" required>
-      <label>รูปภาพ</label>
-      <input type="file" name="Image" class="form-control" accept="image/*">
-      <button type="submit" name="add" class="btn btn-success mt-3">บันทึก</button>
-    </form>
-  </div>
+        <label>ครูผู้สอน</label>
+        <input type="text" name="Teacher" class="form-control" required>
+        <label>รูปภาพ</label>
+        <input type="file" name="Image" class="form-control" accept="image/*">
+        <button type="submit" name="add" class="btn btn-success mt-3">บันทึก</button>
+      </form>
+    </div>
 
-  <!-- Course List -->
-  <div class="card">
-    <h4>📋 รายการคอร์ส</h4>
-    <table class="table table-dark table-bordered align-middle">
-      <thead>
-        <tr>
-          <th>ID</th><th>ชื่อ</th><th>ครูผู้สอน</th><th>ราคา</th><th>สถานะ</th><th>การจัดการ</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-        <tr>
-          <td><?= $row['CourseID'] ?></td>
-          <td><?= htmlspecialchars($row['CourseName']) ?></td>
-          <td><?= htmlspecialchars($row['Teacher']) ?></td>
-          <td><?= number_format($row['Fee'],2) ?></td>
-          <td>
-            <?php if ($row['status']=='approved'): ?>
-              <span class="badge bg-success">✅ Approved</span>
-            <?php elseif ($row['status']=='pending'): ?>
-              <span class="badge bg-warning text-dark">⏳ Pending</span>
-            <?php else: ?>
-              <span class="badge bg-danger">❌ Disapproved</span>
-              <?php
-                $cid = $row['CourseID'];
-                $res2 = mysqli_query($conn, "SELECT reason FROM approval_history 
+    <!-- Course List -->
+    <div class="card">
+      <h4>📋 รายการคอร์ส</h4>
+      <table class="table table-dark table-bordered align-middle">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>ชื่อ</th>
+            <th>ครูผู้สอน</th>
+            <th>ราคา</th>
+            <th>สถานะ</th>
+            <th>การจัดการ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+            <tr>
+              <td><?= $row['CourseID'] ?></td>
+              <td><?= htmlspecialchars($row['CourseName']) ?></td>
+              <td><?= htmlspecialchars($row['Teacher']) ?></td>
+              <td><?= number_format($row['Fee'], 2) ?></td>
+              <td>
+                <?php if ($row['status'] == 'approved'): ?>
+                  <span class="badge bg-success">✅ Approved</span>
+                <?php elseif ($row['status'] == 'pending'): ?>
+                  <span class="badge bg-warning text-dark">⏳ Pending</span>
+                <?php else: ?>
+                  <span class="badge bg-danger">❌ Disapproved</span>
+                  <?php
+                  $cid = $row['CourseID'];
+                  $res2 = mysqli_query($conn, "SELECT reason FROM approval_history 
                                              WHERE item_type='course' AND item_id=$cid 
                                              ORDER BY created_at DESC LIMIT 1");
-                if ($reasonRow = mysqli_fetch_assoc($res2)) {
-                    echo "<br><small>เหตุผล: ".htmlspecialchars($reasonRow['reason'])."</small>";
-                }
-              ?>
-            <?php endif; ?>
-          </td>
-          <td><a href="edit_course.php?id=<?= $row['CourseID'] ?>" class="btn btn-warning btn-sm">✏️ แก้ไข</a></td>
-        </tr>
-        <?php } ?>
-      </tbody>
-    </table>
+                  if ($reasonRow = mysqli_fetch_assoc($res2)) {
+                    echo "<br><small>เหตุผล: " . htmlspecialchars($reasonRow['reason']) . "</small>";
+                  }
+                  ?>
+                <?php endif; ?>
+              </td>
+              <td>
+                <a href="edit_course.php?id=<?= $row['CourseID'] ?>" class="btn btn-warning btn-sm">✏️ แก้ไข</a>
+                <a href="delete_course.php?id=<?= $row['CourseID'] ?>"
+                  class="btn btn-danger btn-sm"
+                  onclick="return confirm('คุณแน่ใจหรือไม่ที่จะลบคอร์สนี้?')">🗑 ลบ</a>
+              </td>
+
+            </tr>
+          <?php } ?>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
 </body>
+
 </html>

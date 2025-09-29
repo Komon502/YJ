@@ -43,7 +43,7 @@
 
 <main>
   <!-- HERO -->
-  <section class="hero text-center py-5 bg-dark text-white">
+  <section class="hero text-center py-5 bg-dark text-white hero-bg">
     <div class="hero-content">
       <h1>Contact Us</h1>
       <p>สนใจสมัครเรียนที่ YJ ติดต่อเราได้ผ่านช่องทางโซเชียล ✨</p>

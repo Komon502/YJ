@@ -1,129 +1,116 @@
-/* ===========================
-   ABOUT PAGE
-=========================== */
-
 /* Hero Section */
 .hero {
-    padding: 120px 20px;
-    background: url('image/bg2.jpg') no-repeat center center/cover;
-    position: relative;
-    text-align: center;
-    color: #fff;
+  padding: 120px 20px;
+  position: relative;
+  text-align: center;
+  color: #fff;
 }
 .hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.6);
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
 }
 .hero-content {
-    position: relative;
-    z-index: 1;
+  position: relative;
+  z-index: 1;
 }
 .hero-content h1 {
-    font-size: 3rem;
-    color: #ff5733;
-    margin-bottom: 15px;
-    font-family: 'Montserrat', sans-serif;
+  font-size: 3rem;
+  color: var(--main-red);
+  margin-bottom: 15px;
 }
 .hero-content p {
-    font-size: 1.2rem;
-    color: #ddd;
-    max-width: 700px;
-    margin: auto;
+  font-size: 1.2rem;
+  color: #ddd;
+  max-width: 700px;
+  margin: auto;
 }
 
 /* About Section */
 .about-section {
-    padding: 80px 20px;
-    background: #111;
+  padding: 80px 20px;
+  background: #111;
 }
 .about-section .container {
-    max-width: 1100px;
-    margin: auto;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 50px;
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 50px;
 }
 .about-text {
-    flex: 1;
-    min-width: 280px;
+  flex: 1;
+  min-width: 280px;
 }
 .about-text h2 {
-    font-family: 'Kanit', sans-serif;
-    font-size: 2rem;
-    color: #ff5733;
-    margin-bottom: 20px;
+  font-size: 2rem;
+  color: var(--main-red);
+  margin-bottom: 20px;
 }
 .about-text p {
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: #ddd;
-    margin-bottom: 15px;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #ddd;
+  margin-bottom: 15px;
 }
 .about-text .highlight {
-    color: #ff7043;
-    font-weight: bold;
+  color: #ff7043;
+  font-weight: bold;
 }
 .about-img {
-    flex: 1;
-    text-align: center;
+  flex: 1;
+  text-align: center;
 }
 .about-img img {
-    max-width: 350px;
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
-    transition: transform 0.3s, box-shadow 0.3s;
+  max-width: 350px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 .about-img img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 12px 30px rgba(255, 87, 51, 0.4);
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(255, 87, 51, 0.4);
 }
 
 /* Team Section */
 .team-section {
-    padding: 80px 20px;
-    background: #000;
-    text-align: center;
-}
-.team-section h2 {
-    font-size: 2.2rem;
-    color: #ff5733;
-    margin-bottom: 40px;
-    font-family: 'Kanit', sans-serif;
+  padding: 80px 20px;
+  background: #000;
+  text-align: center;
 }
 .team-card {
-    background: #1a1a1a;
-    border-radius: 15px;
-    padding: 40px 30px;
-    max-width: 400px;
-    margin: auto;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.6);
-    transition: transform 0.3s, box-shadow 0.3s;
+  background: #1a1a1a;
+  border-radius: 15px;
+  padding: 40px 30px;
+  max-width: 400px;
+  margin: auto;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 .team-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 25px rgba(255, 87, 51, 0.4);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(255, 87, 51, 0.4);
 }
 .team-card img {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    margin-bottom: 20px;
-    object-fit: cover;
-    border: 3px solid #ff5733;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  object-fit: cover;
+  border: 3px solid var(--main-red);
 }
 .team-card h3 {
-    color: #ff7043;
-    font-size: 1.3rem;
-    margin-bottom: 10px;
+  color: #ff7043;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
 }
 .team-card p {
-    color: #ccc;
-    margin-bottom: 8px;
+  color: #ccc;
+  margin-bottom: 8px;
 }
 .team-card .contact {
-    color: #bbb;
-    font-size: 1rem;
+  color: #bbb;
+  font-size: 1rem;
 }

@@ -1,24 +1,107 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: "Kanit", sans-serif;
   margin: 0;
   background: #000;
   color: #fff;
+  opacity: 0;
+  animation: fadeInPage 1s ease forwards;
 }
-html, body {
+
+html,
+body {
   height: 100%;
   display: flex;
   flex-direction: column;
 }
+
 main {
   flex: 1;
 }
 
-/* สีหลักธีม */
+/* 🎨 Theme Colors */
 :root {
   --main-red: #ff000d;
   --dark-bg: #000000;
   --gray-text: #aaa;
+  --orange: #ff9800;
+}
+
+/* Heading */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: var(--main-red);
+  margin-bottom: 20px;
+}
+
+/* Paragraph */
+p {
+  color: var(--gray-text);
+  margin-bottom: 15px;
+}
+
+/* Links */
+a {
+  color: var(--main-red);
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+a:hover {
+  color: #ff4545;
+}
+
+/* Section Default */
+section {
+  background: var(--dark-bg);
+  padding: 60px 20px;
+}
+
+/* Utility */
+.text-center {
+  text-align: center;
+}
+
+.text-light {
+  color: #ddd;
+}
+
+.hero-bg1 {
+  background: url('../image/bg1.jpg') no-repeat center center/cover;
+}
+
+.hero-bg2 {
+  background: url('../image/bg2.jpg') no-repeat center center/cover;
+}
+
+.hero-bg3 {
+  background: url('../image/bg3.jpg') no-repeat center center/cover;
+}
+
+.hero-bg {
+  background: url('../image/bg.jpg') no-repeat center center/cover;
+}
+
+@keyframes fadeInPage {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }

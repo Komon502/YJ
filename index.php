@@ -1,5 +1,5 @@
 <?php
-// เชื่อมต่อส่วน navbar และฐานข้อมูล
+// เชื่อมต่อ navbar และฐานข้อมูล
 include __DIR__ . '/navbar.php';
 include __DIR__ . '/db_connect.php';
 
@@ -12,8 +12,8 @@ function getImagePath($fileName) {
 }
 ?>
 <!-- ================= CSS ================= -->
-<link rel="stylesheet" href="public/style.css">
-<link rel="stylesheet" href="public/index_style.css">
+<link rel="stylesheet" href="public/style.css">       <!-- Global style -->
+<link rel="stylesheet" href="public/index_style.css"> <!-- เฉพาะหน้า index -->
 
 <!-- ================= HERO ================= -->
 <section class="hero">
@@ -25,7 +25,7 @@ function getImagePath($fileName) {
 
 <!-- ================= EVENT SECTION ================= -->
 <section class="container my-5">
-  <h2 class="text-center mb-4 text-warning">📅 Event</h2>
+  <h2 class="text-center mb-4" style="color:#ff5733;">📅 Event</h2>
   <?php
   $query = mysqli_query($conn, "SELECT * FROM event 
                                 WHERE E_EndDate >= NOW() 
@@ -68,3 +68,11 @@ function getImagePath($fileName) {
 
 <!-- ================= FOOTER ================= -->
 <?php include __DIR__ . '/footer.php'; ?>
+
+<!-- ================= JS Random Background ================= -->
+<script>
+  const hero = document.querySelector(".hero");
+  const bgClasses = ["hero-bg1", "hero-bg2", "hero-bg3", "hero-bg"];
+  const randomBg = bgClasses[Math.floor(Math.random() * bgClasses.length)];
+  hero.classList.add(randomBg);
+</script>

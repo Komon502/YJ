@@ -1,7 +1,6 @@
-/* Hero Section */
+/* ================= Hero Section ================= */
 .hero {
   padding: 100px 20px;
-  background: url('../image/bg2.jpg') no-repeat center center/cover;
   position: relative;
   text-align: center;
 }
@@ -17,7 +16,6 @@
 }
 .hero-content h1 {
   font-size: 3rem;
-  font-family: 'Montserrat', sans-serif;
   color: var(--main-red);
   margin-bottom: 15px;
   opacity: 0;
@@ -51,11 +49,11 @@
   transform: translateY(-3px);
 }
 
-/* Event Section */
+/* ================= Event Section ================= */
 .container h2 {
   font-size: 2.2rem;
   font-weight: 700;
-  color: var(--main-red);
+  color: var(--orange); /* สีส้มเฉพาะ Event */
   margin-bottom: 40px;
   text-align: center;
   position: relative;
@@ -64,12 +62,22 @@
   content: "";
   width: 60px;
   height: 3px;
-  background: var(--main-red);
+  background: var(--orange);
   display: block;
   margin: 10px auto 0;
   border-radius: 3px;
 }
-/* Animation Keyframes */
+
+/* Grid */
+.event-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Animation */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }

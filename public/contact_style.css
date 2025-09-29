@@ -1,97 +1,90 @@
-/* ===========================
-   CONTACT PAGE
-=========================== */
-
-/* Hero Section (ใช้ร่วมกับทุกหน้า) */
+/* Hero Section */
 .hero {
-    padding: 120px 20px;
-    background: url('image/bg2.jpg') no-repeat center center/cover;
-    position: relative;
-    text-align: center;
-    color: #fff;
+  padding: 120px 20px;
+  position: relative;
+  text-align: center;
+  color: #fff;
 }
 .hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.6);
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
 }
 .hero-content {
-    position: relative;
-    z-index: 1;
+  position: relative;
+  z-index: 1;
 }
 .hero-content h1 {
-    font-size: 3rem;
-    color: #ff5733;
-    margin-bottom: 15px;
-    font-family: 'Montserrat', sans-serif;
+  font-size: 3rem;
+  color: var(--main-red);
+  margin-bottom: 15px;
 }
 .hero-content p {
-    font-size: 1.2rem;
-    color: #ddd;
-    max-width: 700px;
-    margin: auto;
+  font-size: 1.2rem;
+  color: #ddd;
+  max-width: 700px;
+  margin: auto;
 }
 
 /* Contact Section */
 .contact-section {
-    padding: 80px 20px;
-    background: #111;
-    text-align: center;
+  padding: 80px 20px;
+  background: #111;
+  text-align: center;
 }
 .contact-section h2 {
-    font-family: 'Kanit', sans-serif;
-    font-size: 2.2rem;
-    color: #ff5733;
-    margin-bottom: 40px;
+  font-size: 2.2rem;
+  color: var(--main-red);
+  margin-bottom: 40px;
 }
 .social-links {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
 }
 .icon-box {
-    background: #1a1a1a;
-    padding: 30px 25px;
-    border-radius: 15px;
-    width: 160px;
-    text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+  background: #1a1a1a;
+  padding: 30px 25px;
+  border-radius: 15px;
+  width: 160px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
 }
 .icon-box:hover {
-    transform: translateY(-8px);
-    background: #222;
-    box-shadow: 0 12px 25px rgba(255, 87, 51, 0.3);
+  transform: translateY(-8px);
+  background: #222;
+  box-shadow: 0 12px 25px rgba(255, 87, 51, 0.3);
 }
 .icon-box i {
-    font-size: 2.8rem;
-    color: #fff;
-    transition: color 0.3s;
+  font-size: 2.8rem;
+  color: #fff;
+  transition: color 0.3s;
 }
 .icon-box:hover i {
-    color: #ff5733;
+  color: var(--main-red);
 }
 .icon-box p {
-    margin-top: 12px;
-    font-size: 1rem;
-    color: #ddd;
-    font-weight: 500;
+  margin-top: 12px;
+  font-size: 1rem;
+  color: #ddd;
+  font-weight: 500;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-    .hero-content h1 {
-        font-size: 2.2rem;
-    }
-    .hero-content p {
-        font-size: 1rem;
-    }
-    .social-links {
-        gap: 20px;
-    }
-    .icon-box {
-        width: 140px;
-        padding: 20px;
-    }
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+  .hero-content p {
+    font-size: 1rem;
+  }
+  .social-links {
+    gap: 20px;
+  }
+  .icon-box {
+    width: 140px;
+    padding: 20px;
+  }
 }
