@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 24, 2025 at 10:30 AM
+-- Generation Time: Sep 30, 2025 at 07:32 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,26 +24,24 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Table structure for table `approval_history`
 --
 
-CREATE TABLE `admin` (
-  `A_ID` int(11) NOT NULL,
-  `A_Username` varchar(50) NOT NULL,
-  `A_Password` varchar(255) NOT NULL,
-  `A_Name` varchar(100) NOT NULL,
-  `A_Email` varchar(100) NOT NULL,
-  `A_Phone` varchar(20) DEFAULT NULL,
-  `A_Role` enum('Admin','Staff') DEFAULT 'Staff',
-  `Created_At` timestamp NOT NULL DEFAULT current_timestamp()
+CREATE TABLE `approval_history` (
+  `id` int(11) NOT NULL,
+  `item_type` enum('event','course') NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `status` enum('pending','approved','disapproved') NOT NULL DEFAULT 'pending',
+  `reason` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `admin`
+-- Dumping data for table `approval_history`
 --
 
-INSERT INTO `admin` (`A_ID`, `A_Username`, `A_Password`, `A_Name`, `A_Email`, `A_Phone`, `A_Role`, `Created_At`) VALUES
-(1, 'test1', '$2y$10$HZ.fMtO8l/dToPAYqMm5q.TElTeMg8tbTTHWLvPgnLr3DBOaObEC6', 'Test', '', '0923956666', '', '2025-09-23 12:04:01');
+INSERT INTO `approval_history` (`id`, `item_type`, `item_id`, `status`, `reason`, `created_at`) VALUES
+(1, 'event', 37, 'pending', '', '2025-09-29 07:14:57');
 
 -- --------------------------------------------------------
 
@@ -59,17 +57,18 @@ CREATE TABLE `course` (
   `Duration` varchar(100) DEFAULT NULL,
   `Fee` decimal(10,2) DEFAULT NULL,
   `Teacher` varchar(255) DEFAULT NULL,
-  `Image` varchar(255) DEFAULT NULL
+  `Image` varchar(255) DEFAULT NULL,
+  `status` enum('pending','approved','disapproved') DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `course`
 --
 
-INSERT INTO `course` (`CourseID`, `CourseName`, `Category`, `Description`, `Duration`, `Fee`, `Teacher`, `Image`) VALUES
-(1, 'Content Creator & Youtuber', 'Web Development', 'การทำคอนเทนต์บน YouTube และแพลตฟอร์มอื่นๆ\r\nการร้องเพลง (Singing)\r\nเล่นดนตรี (Piano, Guitar)\r\nเขียนเพลง & แต่งเพลง\r\nการทำ Voice Over และการพูดพิธีกร (MC)\r\nการแสดงโชว์ผ่าน Free VDO Showcase\r\nกิจกรรมพิเศษ: ออก Event ทุกเดือน', '8 ชั่วโมง', 5900.00, 'ครู Ichi', '1758644459_course1.png'),
-(2, 'Singing & Personality', 'Music', 'เทคนิคการร้องเพลงพื้นฐาน & ขั้นสูง\r\nการใช้เสียง และการปรับโทนเสียง\r\nการพัฒนา บุคลิกภาพ (Personality Development)\r\nการพูด การแสดง และการสื่อสารบนเวที', '8 ชั่วโมง', 4900.00, 'ครูเบลล่า', '1758647155_course2.png'),
-(3, 'Youtuber & Editing', 'Media', 'การสร้างคอนเทนต์ YouTube ตั้งแต่ 0\r\nการใช้ Canva ทำกราฟิก & โปสเตอร์\r\nRoblox Game Content การเล่นและทำคลิปเกม\r\nการใช้ CapCut ตัดต่อวิดีโอ\r\nการเล่าเรื่อง (Storytelling) และการนำเสนอ', '8 ชั่วโมง', 4900.00, 'ครูต๊ะ, ครูโจม', '1758647184_course3.png');
+INSERT INTO `course` (`CourseID`, `CourseName`, `Category`, `Description`, `Duration`, `Fee`, `Teacher`, `Image`, `status`) VALUES
+(1, 'Content Creator & Youtuber', 'Web Development', 'การทำคอนเทนต์บน YouTube และแพลตฟอร์มอื่นๆ\r\nการร้องเพลง (Singing)\r\nเล่นดนตรี (Piano, Guitar)\r\nเขียนเพลง & แต่งเพลง\r\nการทำ Voice Over และการพูดพิธีกร (MC)\r\nการแสดงโชว์ผ่าน Free VDO Showcase\r\nกิจกรรมพิเศษ: ออก Event ทุกเดือน', '8 ชั่วโมง', 5900.00, 'ครู Ichi', '1758644459_course1.png', 'approved'),
+(2, 'Singing & Personality', 'Music', 'เทคนิคการร้องเพลงพื้นฐาน & ขั้นสูง\r\nการใช้เสียง และการปรับโทนเสียง\r\nการพัฒนา บุคลิกภาพ (Personality Development)\r\nการพูด การแสดง และการสื่อสารบนเวที', '8 ชั่วโมง', 4900.00, 'ครูเบลล่า', '1758647155_course2.png', 'approved'),
+(3, 'Youtuber & Editing', 'Media', 'การสร้างคอนเทนต์ YouTube ตั้งแต่ 0\r\nการใช้ Canva ทำกราฟิก & โปสเตอร์\r\nRoblox Game Content การเล่นและทำคลิปเกม\r\nการใช้ CapCut ตัดต่อวิดีโอ\r\nการเล่าเรื่อง (Storytelling) และการนำเสนอ', '8 ชั่วโมง', 4900.00, 'ครูต๊ะ, ครูโจม', '1758647184_course3.png', 'approved');
 
 -- --------------------------------------------------------
 
@@ -84,32 +83,64 @@ CREATE TABLE `event` (
   `E_StartDate` date NOT NULL,
   `E_EndDate` date NOT NULL,
   `E_Location` varchar(255) NOT NULL,
-  `E_Image` varchar(255) DEFAULT NULL
+  `E_Image` varchar(255) DEFAULT NULL,
+  `status` enum('pending','approved','disapproved') DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `event`
 --
 
-INSERT INTO `event` (`EventID`, `E_Title`, `E_Detail`, `E_StartDate`, `E_EndDate`, `E_Location`, `E_Image`) VALUES
-(23, 'Music Band Show', '6', '2025-08-23', '2025-08-24', 'The Mall Korat Creator Contest', '1758701587_Music Band Show.jpg'),
-(24, 'ํ๋YJ Show', '6', '2025-09-25', '2025-09-29', 'The Mall Korat Creator Contest', '1758701777_YJ Show.jpg'),
-(29, 'Kids Market', '6', '2025-09-25', '2025-09-29', 'The Mall Korat Creator Contest', '1758701853_kidmarket.jpg'),
-(30, 'BMW', 'BMW', '2025-09-25', '2025-09-26', 'The Mall Korat Creator Contest', '1758701901_R.jpg'),
-(31, 'Feature1', '6', '2025-10-01', '2025-10-07', 'The Mall Korat Creator Contest', '1758701935_Feature1.jpg'),
-(33, 'Owner', '6', '2025-09-16', '2025-10-30', 'The Mall Korat Creator Contest', '1758702017_owner.jpg'),
-(34, 'bg1', '6', '2025-10-29', '2025-11-12', 'The Mall Korat Creator Contest', '1758702055_bg1.jpg');
+INSERT INTO `event` (`EventID`, `E_Title`, `E_Detail`, `E_StartDate`, `E_EndDate`, `E_Location`, `E_Image`, `status`) VALUES
+(37, 'Kids Market ', 'event แรก', '2025-09-28', '2025-09-30', 'The Mall Korat Creator Contest', '1759128372_kidmarket.jpg', 'approved');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `history`
+--
+
+CREATE TABLE `history` (
+  `id` int(11) NOT NULL,
+  `item_type` enum('course','event') NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `action` enum('approved','disapproved') NOT NULL,
+  `reason` text DEFAULT NULL,
+  `owner` varchar(50) NOT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `history`
+--
+
+INSERT INTO `history` (`id`, `item_type`, `item_id`, `action`, `reason`, `owner`, `created_at`) VALUES
+(1, 'course', 1, 'approved', NULL, 'owner', '2025-09-26 13:45:21'),
+(2, 'course', 2, 'approved', NULL, 'owner', '2025-09-26 13:45:30'),
+(3, 'course', 2, 'approved', NULL, 'owner', '2025-09-26 13:46:57'),
+(4, 'course', 3, 'approved', NULL, 'owner', '2025-09-26 13:47:02'),
+(5, 'event', 23, 'approved', NULL, 'owner', '2025-09-26 13:49:56'),
+(6, 'event', 34, 'approved', NULL, 'owner', '2025-09-26 13:50:51'),
+(7, 'event', 34, 'approved', NULL, 'owner', '2025-09-26 14:02:22'),
+(8, 'event', 35, 'approved', NULL, 'owner', '2025-09-26 14:03:13'),
+(9, 'event', 35, 'approved', NULL, 'owner', '2025-09-26 14:03:57'),
+(10, 'event', 36, 'approved', NULL, 'owner', '2025-09-26 14:08:34'),
+(11, 'event', 36, 'disapproved', 'name wrong', 'owner', '2025-09-26 14:36:58'),
+(12, 'event', 36, 'approved', NULL, 'owner', '2025-09-26 14:37:45'),
+(13, 'event', 37, 'approved', NULL, 'owner', '2025-09-29 13:46:46'),
+(14, 'event', 37, 'approved', NULL, 'owner', '2025-09-29 14:06:51'),
+(15, 'course', 3, 'approved', NULL, 'owner', '2025-09-29 14:09:36'),
+(16, 'event', 37, 'approved', NULL, 'owner', '2025-09-29 14:15:04');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `admin`
+-- Indexes for table `approval_history`
 --
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`A_ID`),
-  ADD UNIQUE KEY `A_Username` (`A_Username`);
+ALTER TABLE `approval_history`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `course`
@@ -124,14 +155,20 @@ ALTER TABLE `event`
   ADD PRIMARY KEY (`EventID`);
 
 --
+-- Indexes for table `history`
+--
+ALTER TABLE `history`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `admin`
+-- AUTO_INCREMENT for table `approval_history`
 --
-ALTER TABLE `admin`
-  MODIFY `A_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `approval_history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `course`
@@ -143,7 +180,13 @@ ALTER TABLE `course`
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `EventID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `EventID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT for table `history`
+--
+ALTER TABLE `history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
