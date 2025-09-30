@@ -68,16 +68,108 @@
   border-radius: 3px;
 }
 
-/* Grid */
+/* ================= Event Grid ================= */
 .event-grid {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
   justify-content: center;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
+  align-items: stretch;
+  padding: 20px;
 }
 
-/* Animation */
+/* ================= Event Card ================= */
+.event-card {
+  background: #1a1a1a;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+.event-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.5);
+}
+
+/* กล่องรูปภาพ */
+.event-img-box {
+  position: relative;
+  width: 100%;
+  height: 200px; /* กำหนดความสูงภาพ */
+  overflow: hidden;
+}
+.event-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ครอปรูป */
+  display: block;
+}
+
+/* Tag และ Ribbon */
+.ribbon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ff1a1a;
+  color: white;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+}
+.tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ffa726;
+  color: #000;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+}
+.price {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+}
+
+/* เนื้อหาการ์ด */
+.event-content {
+  padding: 18px;
+  flex: 1;
+}
+.event-content h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #ff7043;
+}
+.event-content .location {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin-bottom: 10px;
+}
+.event-content .detail {
+  font-size: 0.9rem;
+  color: #ddd;
+  line-height: 1.5;
+}
+
+.event-footer {
+  padding: 12px 18px;
+  border-top: 1px solid #333;
+  font-size: 0.85rem;
+  color: #aaa;
+  text-align: right;
+}
+
+/* ================= Animation ================= */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }

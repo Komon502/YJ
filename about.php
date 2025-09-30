@@ -44,3 +44,10 @@
 </main>
 
 <?php include 'footer.php'; ?>
+<!-- ================= JS Random Background ================= -->
+<script>
+  const hero = document.querySelector(".hero");
+  const bgClasses = ["hero-bg1", "hero-bg2", "hero-bg3", "hero-bg"];
+  const randomBg = bgClasses[Math.floor(Math.random() * bgClasses.length)];
+  hero.classList.add(randomBg);
+</script>

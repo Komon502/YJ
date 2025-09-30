@@ -1,81 +1,66 @@
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 30px;
-  background: rgba(17, 17, 17, 0.95);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 15px 30px !important;
+  background: black !important;
+  position: fixed !important;
+  width: 100% !important;
+  top: 0 !important;
+  left: 0 !important;
+  z-index: 1000 !important;
 }
 
-/* Logo */
-.navbar .logo img {
-  height: 45px;
+.navbar a {
+  color: #fff !important;
+  font-weight: bold !important;
 }
 
-/* Menu */
-.navbar .menu {
-  display: flex;
-  gap: 25px;
+main {
+  padding-top: 80px; /* เว้นที่ให้ navbar ไม่ทับเนื้อหา */
 }
-.navbar .menu a {
-  color: #fff;
+
+/* เมนู Desktop */
+.menu {
+  display: flex;
+  gap: 20px;
+}
+
+.menu a {
+  color: white;
   text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s;
-}
-.navbar .menu a:hover {
-  color: #e50914;
+  font-weight: bold;
 }
 
 /* Hamburger */
 .hamburger {
-  display: none;
+  display: none; /* ปิดไว้ก่อน ถ้าเป็นจอใหญ่ */
   flex-direction: column;
-  justify-content: space-between;
-  width: 25px;
-  height: 18px;
+  gap: 5px;
   cursor: pointer;
 }
+
 .hamburger span {
-  display: block;
+  width: 25px;
   height: 3px;
-  width: 100%;
-  background: #fff;
-  border-radius: 3px;
-  transition: all 0.3s ease;
+  background: white;
 }
 
-/* Hamburger active = X */
-.hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translateY(8px);
-}
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-.hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translateY(-8px);
-}
-
-/* Responsive */
+/* Responsive สำหรับมือถือ */
 @media (max-width: 768px) {
-  .navbar .menu {
+  .menu {
     display: none;
     flex-direction: column;
-    background: #111;
     position: absolute;
     top: 60px;
-    right: 0;
-    width: 220px;
-    border-radius: 8px;
+    right: 30px;
+    background: black;
     padding: 15px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+    border-radius: 8px;
   }
-  .navbar .menu.active {
+  .menu.active {
     display: flex;
   }
-
   .hamburger {
     display: flex;
   }

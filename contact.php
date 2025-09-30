@@ -1,6 +1,8 @@
 <?php include 'navbar.php'; ?>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<!-- โหลด CSS ของคุณทีหลัง เพื่อให้ override Bootstrap -->
 <link rel="stylesheet" href="public/style.css">
 <link rel="stylesheet" href="public/contact_style.css">
 
@@ -90,3 +92,10 @@
 </main>
 
 <?php include 'footer.php'; ?>
+<!-- ================= JS Random Background ================= -->
+<script>
+  const hero = document.querySelector(".hero");
+  const bgClasses = ["hero-bg1", "hero-bg2", "hero-bg3", "hero-bg"];
+  const randomBg = bgClasses[Math.floor(Math.random() * bgClasses.length)];
+  hero.classList.add(randomBg);
+</script>

@@ -8,7 +8,7 @@ $result = mysqli_query($conn, $sql);
 <link rel="stylesheet" href="public/style.css">
 <link rel="stylesheet" href="public/course_style.css">
 
-<section class="hero">
+<section class="hero hero-bg3">
   <div class="hero-content">
     <h1>Our Courses</h1>
     <p>เลือกคอร์สเรียนสนุก ๆ ที่จะช่วยเสริมทักษะ และสร้างผลงานใหม่ ✨</p>
@@ -36,3 +36,11 @@ $result = mysqli_query($conn, $sql);
 </section>
 
 <?php include 'footer.php'; ?>
+<!-- ================= JS Random Background ================= -->
+<script>
+  const hero = document.querySelector(".hero");
+  const bgClasses = ["hero-bg1", "hero-bg2", "hero-bg3", "hero-bg"];
+  const randomBg = bgClasses[Math.floor(Math.random() * bgClasses.length)];
+  hero.classList.add(randomBg);
+</script>
+

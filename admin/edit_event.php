@@ -32,31 +32,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (mysqli_query($conn, $sql)) {
     $success = "✅ แก้ไข Event สำเร็จ (รอ Owner อนุมัติ)";
 
-    // ✅ Insert ลง approval_history
+    // ✅ Insert หรือ Update ลง approval_history
     $eid = $id;
     mysqli_query($conn, "
         INSERT INTO approval_history (item_type, item_id, status, reason, created_at)
         VALUES ('event', $eid, 'pending', '', NOW())
+        ON DUPLICATE KEY UPDATE 
+            status='pending',
+            reason='',
+            created_at=NOW()
     ");
   } else {
     $error = "❌ เกิดข้อผิดพลาด: " . mysqli_error($conn);
   }
 }
 
-
 $result = mysqli_query($conn, "SELECT * FROM event WHERE EventID=$id");
 $event = mysqli_fetch_assoc($result);
 ?>
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
   <meta charset="UTF-8">
   <title>แก้ไข Event</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="public/admin_event_edit.css">
 </head>
-
 <body>
   <div class="container py-5">
     <h1>✏️ แก้ไข Event</h1>
@@ -100,5 +101,4 @@ $event = mysqli_fetch_assoc($result);
     </form>
   </div>
 </body>
-
 </html>

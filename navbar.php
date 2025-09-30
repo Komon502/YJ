@@ -1,4 +1,5 @@
 <header>
+  <link rel="stylesheet" href="public/navbar.css">
   <div class="navbar">
     <div class="logo">
       <a href="index.php">

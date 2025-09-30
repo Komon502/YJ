@@ -1,21 +1,22 @@
 <?php
+session_start();
 include 'auth.php';
 include '../db_connect.php';
 
-$type = $_GET['type'];
-$id = intval($_GET['id']);
-$action = $_GET['action'];
+$type   = $_GET['type'];     // course หรือ event
+$id     = intval($_GET['id']);
+$action = $_GET['action'];   // approve หรือ disapprove
 
 if ($action === "approve") {
     $status = "approved";
     $reason = null;
 } else {
-    // ถ้า disapprove ต้องใส่เหตุผล
+    // ถ้าเป็น disapprove ต้องกรอกเหตุผล
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $status = "disapproved";
         $reason = mysqli_real_escape_string($conn, $_POST['reason']);
     } else {
-        // ฟอร์มให้กรอกเหตุผล
+        // แสดงฟอร์มกรอกเหตุผล
         ?>
         <!DOCTYPE html>
         <html lang="th">
@@ -30,7 +31,7 @@ if ($action === "approve") {
             <form method="post">
                 <textarea name="reason" class="form-control mb-3" placeholder="กรอกเหตุผล..." required></textarea>
                 <button type="submit" class="btn btn-danger">ยืนยัน Disapprove</button>
-                <a href="dashboard.php" class="btn btn-secondary">ยกเลิก</a>
+                <a href="owner_dashboard.php" class="btn btn-secondary">ยกเลิก</a>
             </form>
         </div>
         </body>
@@ -40,15 +41,26 @@ if ($action === "approve") {
     }
 }
 
-// update ตารางหลัก
+// ✅ update ตารางหลัก (course/event)
 $table = ($type === "course") ? "course" : "event";
 $key   = ($type === "course") ? "CourseID" : "EventID";
 mysqli_query($conn, "UPDATE $table SET status='$status' WHERE $key=$id");
 
-// insert history
-mysqli_query($conn, "INSERT INTO history (item_type, item_id, action, reason, owner, created_at) 
-    VALUES ('$type', $id, '$status', " . ($reason ? "'$reason'" : "NULL") . ", '{$_SESSION['O_Username']}', NOW())");
+// ✅ insert ลง history (ฝั่ง Owner ใช้ดู)
+mysqli_query($conn, "
+    INSERT INTO history (item_type, item_id, action, reason, owner, created_at) 
+    VALUES ('$type', $id, '$status', " . ($reason ? "'$reason'" : "NULL") . ", '{$_SESSION['O_Username']}', NOW())
+");
+
+// ✅ insert/update ลง approval_history (ฝั่ง Admin ใช้ดู)
+mysqli_query($conn, "
+    INSERT INTO approval_history (item_type, item_id, status, reason, created_at)
+    VALUES ('$type', $id, '$status', " . ($reason ? "'$reason'" : "NULL") . ", NOW())
+    ON DUPLICATE KEY UPDATE 
+        status='$status', 
+        reason=" . ($reason ? "'$reason'" : "NULL") . ", 
+        created_at=NOW()
+");
 
 header("Location: owner_dashboard.php");
 exit();
-?>
