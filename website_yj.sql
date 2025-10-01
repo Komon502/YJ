@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 30, 2025 at 07:32 AM
+-- Generation Time: Oct 01, 2025 at 04:15 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,7 +41,11 @@ CREATE TABLE `approval_history` (
 --
 
 INSERT INTO `approval_history` (`id`, `item_type`, `item_id`, `status`, `reason`, `created_at`) VALUES
-(1, 'event', 37, 'pending', '', '2025-09-29 07:14:57');
+(4, 'event', 37, 'approved', NULL, '2025-09-30 06:43:17'),
+(9, 'course', 3, 'approved', NULL, '2025-09-30 06:42:14'),
+(13, 'event', 38, 'approved', NULL, '2025-09-30 06:52:23'),
+(15, 'event', 39, 'approved', NULL, '2025-10-01 06:16:46'),
+(17, 'event', 40, 'approved', NULL, '2025-10-01 07:45:28');
 
 -- --------------------------------------------------------
 
@@ -92,7 +96,10 @@ CREATE TABLE `event` (
 --
 
 INSERT INTO `event` (`EventID`, `E_Title`, `E_Detail`, `E_StartDate`, `E_EndDate`, `E_Location`, `E_Image`, `status`) VALUES
-(37, 'Kids Market ', 'event แรก', '2025-09-28', '2025-09-30', 'The Mall Korat Creator Contest', '1759128372_kidmarket.jpg', 'approved');
+(37, 'Kids Market ', 'event แรก', '2025-09-28', '2026-09-29', 'The Mall Korat Creator Contest', '1759128372_kidmarket.jpg', 'approved'),
+(38, 'Hola', '-', '2028-09-25', '2029-12-05', 'The Mall Korat Creator Contest', '1759215138_YJ Show.jpg', 'approved'),
+(39, 'Champion', '-', '2025-10-30', '2025-11-02', 'The Mall Korat Creator Contest', '1759299399_ChatGPT Image Sep 20, 2025, 03_59_26 PM.png', 'approved'),
+(40, 'Music', '-', '2025-11-04', '2029-10-23', 'The Mall Korat Creator Contest', '1759304720_Music Band Show.jpg', 'approved');
 
 -- --------------------------------------------------------
 
@@ -130,7 +137,15 @@ INSERT INTO `history` (`id`, `item_type`, `item_id`, `action`, `reason`, `owner`
 (13, 'event', 37, 'approved', NULL, 'owner', '2025-09-29 13:46:46'),
 (14, 'event', 37, 'approved', NULL, 'owner', '2025-09-29 14:06:51'),
 (15, 'course', 3, 'approved', NULL, 'owner', '2025-09-29 14:09:36'),
-(16, 'event', 37, 'approved', NULL, 'owner', '2025-09-29 14:15:04');
+(16, 'event', 37, 'approved', NULL, 'owner', '2025-09-29 14:15:04'),
+(17, 'event', 37, 'approved', NULL, 'owner', '2025-09-30 13:33:30'),
+(18, 'event', 37, 'approved', NULL, 'owner', '2025-09-30 13:37:21'),
+(19, 'event', 37, 'approved', NULL, 'owner', '2025-09-30 13:39:02'),
+(20, 'course', 3, 'approved', NULL, 'owner', '2025-09-30 13:42:14'),
+(21, 'event', 37, 'approved', NULL, 'owner', '2025-09-30 13:43:17'),
+(22, 'event', 38, 'approved', NULL, 'owner', '2025-09-30 13:52:23'),
+(23, 'event', 39, 'approved', NULL, 'owner', '2025-10-01 13:16:46'),
+(24, 'event', 40, 'approved', NULL, 'owner', '2025-10-01 14:45:28');
 
 --
 -- Indexes for dumped tables
@@ -140,7 +155,8 @@ INSERT INTO `history` (`id`, `item_type`, `item_id`, `action`, `reason`, `owner`
 -- Indexes for table `approval_history`
 --
 ALTER TABLE `approval_history`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_item` (`item_id`,`item_type`);
 
 --
 -- Indexes for table `course`
@@ -168,7 +184,7 @@ ALTER TABLE `history`
 -- AUTO_INCREMENT for table `approval_history`
 --
 ALTER TABLE `approval_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `course`
@@ -180,13 +196,13 @@ ALTER TABLE `course`
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `EventID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `EventID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
