@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         body { 
             background:#000; 
             color:#fff; 
-            font-family:'Prompt', sans-serif; 
+            
             display:flex; 
             justify-content:center; 
             align-items:center; 
@@ -136,7 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <div class="login-box <?php echo $show_animation ? 'shake' : ''; ?>">
-        <h2>🔑 เข้าสู่ระบบผู้ดูแล</h2>
+        <h2>🔑 Admin Login</h2>
         <?php if ($error) echo "<div class='alert alert-danger text-center alert-animated'>$error</div>"; ?>
         <form method="post" id="loginForm">
             <div class="mb-3">

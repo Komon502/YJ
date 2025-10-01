@@ -34,7 +34,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         body { 
             background:#000; 
             color:#fff; 
-            font-family:'Prompt', sans-serif; 
             display:flex; 
             justify-content:center; 
             align-items:center; 
