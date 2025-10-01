@@ -1,6 +1,6 @@
 <header>
   <link rel="stylesheet" href="public/navbar.css?v=<?= time() ?>">
-  
+  <link rel="stylesheet" href="public/style.css">
   <!-- Force Logo Size -->
   <style>
     .navbar .logo img,
@@ -13,7 +13,7 @@
       object-fit: contain !important;
     }
   </style>
-  
+
   <div class="navbar">
     <div class="logo">
       <a href="index.php">

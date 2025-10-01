@@ -3,7 +3,8 @@ include __DIR__ . '/navbar.php';
 include __DIR__ . '/db_connect.php';
 
 // ฟังก์ชันเช็ค path ของรูป
-function getImagePath($fileName) {
+function getImagePath($fileName)
+{
   if (!empty($fileName) && file_exists(__DIR__ . "/uploads/" . $fileName)) {
     return "uploads/" . $fileName;
   }
@@ -12,10 +13,12 @@ function getImagePath($fileName) {
 ?>
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>YJ Creating - Home</title>
+  <link rel="stylesheet" href="public/style.css">
   <style>
     * {
       margin: 0;
@@ -46,7 +49,7 @@ function getImagePath($fileName) {
       position: absolute;
       width: 600px;
       height: 600px;
-      background: radial-gradient(circle, rgba(255,87,51,0.15) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(255, 87, 51, 0.15) 0%, transparent 70%);
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -56,11 +59,14 @@ function getImagePath($fileName) {
     }
 
     @keyframes pulse {
-      0%, 100% { 
+
+      0%,
+      100% {
         transform: translate(-50%, -50%) scale(1);
         opacity: 0.5;
       }
-      50% { 
+
+      50% {
         transform: translate(-50%, -50%) scale(1.2);
         opacity: 0.8;
       }
@@ -78,7 +84,7 @@ function getImagePath($fileName) {
       font-weight: 900;
       color: #fff;
       margin-bottom: 20px;
-      text-shadow: 0 0 30px rgba(255,87,51,0.3);
+      text-shadow: 0 0 30px rgba(255, 87, 51, 0.3);
     }
 
     .hero-content h1::first-letter {
@@ -126,7 +132,7 @@ function getImagePath($fileName) {
       margin: 0 auto;
       border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 20px 60px rgba(255,87,51,0.3);
+      box-shadow: 0 20px 60px rgba(255, 87, 51, 0.3);
       background: #0a0a0a;
       border: 1px solid #222;
       animation: cardFadeIn 0.8s ease forwards;
@@ -168,10 +174,13 @@ function getImagePath($fileName) {
     }
 
     @keyframes borderGlow {
-      0%, 100% { 
+
+      0%,
+      100% {
         background: linear-gradient(45deg, #ff5733, #ffa500, #ff5733);
       }
-      50% { 
+
+      50% {
         background: linear-gradient(45deg, #ffa500, #ff5733, #ffa500);
       }
     }
@@ -204,8 +213,13 @@ function getImagePath($fileName) {
     }
 
     @keyframes expandLine {
-      from { width: 0; }
-      to { width: 100px; }
+      from {
+        width: 0;
+      }
+
+      to {
+        width: 100px;
+      }
     }
 
     /* ==================== EVENT GRID ==================== */
@@ -227,12 +241,29 @@ function getImagePath($fileName) {
       animation: cardFadeIn 0.6s ease forwards;
     }
 
-    .event-card:nth-child(1) { animation-delay: 0.1s; }
-    .event-card:nth-child(2) { animation-delay: 0.2s; }
-    .event-card:nth-child(3) { animation-delay: 0.3s; }
-    .event-card:nth-child(4) { animation-delay: 0.4s; }
-    .event-card:nth-child(5) { animation-delay: 0.5s; }
-    .event-card:nth-child(6) { animation-delay: 0.6s; }
+    .event-card:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .event-card:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .event-card:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    .event-card:nth-child(4) {
+      animation-delay: 0.4s;
+    }
+
+    .event-card:nth-child(5) {
+      animation-delay: 0.5s;
+    }
+
+    .event-card:nth-child(6) {
+      animation-delay: 0.6s;
+    }
 
     @keyframes cardFadeIn {
       to {
@@ -244,7 +275,7 @@ function getImagePath($fileName) {
     .event-card:hover {
       transform: translateY(-10px);
       border-color: #ff5733;
-      box-shadow: 0 15px 40px rgba(255,87,51,0.3);
+      box-shadow: 0 15px 40px rgba(255, 87, 51, 0.3);
     }
 
     .event-card::before {
@@ -254,7 +285,7 @@ function getImagePath($fileName) {
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,87,51,0.1), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 87, 51, 0.1), transparent);
       transition: left 0.6s;
       z-index: 1;
     }
@@ -278,7 +309,7 @@ function getImagePath($fileName) {
       left: 0;
       right: 0;
       height: 50%;
-      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
       z-index: 1;
     }
 
@@ -307,7 +338,7 @@ function getImagePath($fileName) {
       font-size: 0.75rem;
       font-weight: bold;
       z-index: 10;
-      box-shadow: 0 4px 15px rgba(255,87,51,0.5);
+      box-shadow: 0 4px 15px rgba(255, 87, 51, 0.5);
       text-transform: uppercase;
       letter-spacing: 1px;
     }
@@ -316,7 +347,7 @@ function getImagePath($fileName) {
       position: absolute;
       top: 15px;
       right: 15px;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0, 0, 0, 0.8);
       backdrop-filter: blur(10px);
       color: #fff;
       padding: 8px 16px;
@@ -332,16 +363,16 @@ function getImagePath($fileName) {
       position: absolute;
       bottom: 15px;
       right: 15px;
-      background: rgba(255,87,51,0.95);
+      background: rgba(255, 87, 51, 0.95);
       backdrop-filter: blur(10px);
       color: #fff;
       padding: 10px 18px;
       border-radius: 25px;
       font-size: 0.8rem;
       font-weight: bold;
-      box-shadow: 0 4px 15px rgba(255,87,51,0.4);
+      box-shadow: 0 4px 15px rgba(255, 87, 51, 0.4);
       z-index: 10;
-      border: 1px solid rgba(255,255,255,0.2);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     /* ==================== CONTENT ==================== */
@@ -387,7 +418,7 @@ function getImagePath($fileName) {
     /* ==================== FOOTER ==================== */
     .event-footer {
       padding: 15px 25px;
-      background: rgba(255,87,51,0.05);
+      background: rgba(255, 87, 51, 0.05);
       border-top: 1px solid #222;
       color: #999;
       font-size: 0.85rem;
@@ -410,6 +441,7 @@ function getImagePath($fileName) {
         opacity: 0;
         transform: translateY(30px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -421,6 +453,7 @@ function getImagePath($fileName) {
         opacity: 0;
         transform: translateX(-50px);
       }
+
       to {
         opacity: 1;
         transform: translateX(0);
@@ -454,7 +487,7 @@ function getImagePath($fileName) {
       background: #ff5733;
       border-color: #ff5733;
       transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(255,87,51,0.4);
+      box-shadow: 0 8px 20px rgba(255, 87, 51, 0.4);
     }
 
     .fab-icon {
@@ -488,119 +521,124 @@ function getImagePath($fileName) {
     }
   </style>
 </head>
+
 <body>
 
-<main>
-  <!-- Hero Section -->
-  <section class="hero" id="hero">
-    <div class="hero-content">
-      <h1>YJ Creating</h1>
-      <p>มาเรียนรู้แบบสนุก สร้างผลงาน และเติมประสบการณ์จริง</p>
-    </div>
-  </section>
-
-  <!-- Video Section -->
-  <section class="video-section">
-    <h2>🎬 วิดีโอแนะนำ</h2>
-    <div class="video-container">
-      <div class="video-wrapper">
-        <iframe 
-          src="https://www.youtube.com/embed/s6vTiRaMiwg?si=GxiNzck_fMYTWNeP" 
-          title="YJ Creating Video" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-          allowfullscreen>
-        </iframe>
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="hero-content">
+        <h1>YJ Creating</h1>
+        <p>มาเรียนรู้แบบสนุก สร้างผลงาน และเติมประสบการณ์จริง</p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Event Section -->
-  <section class="container">
-    <h2>📅 Event</h2>
-    <?php
-    $query = mysqli_query($conn, "SELECT * FROM event 
+    <!-- Video Section -->
+    <section class="video-section">
+      <h2>🎬 วิดีโอแนะนำ</h2>
+      <div class="video-container">
+        <div class="video-wrapper">
+          <iframe
+            src="https://www.youtube.com/embed/s6vTiRaMiwg?si=GxiNzck_fMYTWNeP"
+            title="YJ Creating Video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Event Section -->
+    <section class="container">
+      <h2>📅 Event</h2>
+      <?php
+      $query = mysqli_query($conn, "SELECT * FROM event 
                                   WHERE E_EndDate >= NOW() 
                                     AND status='approved'
                                   ORDER BY E_StartDate ASC 
                                   LIMIT 6");
 
-    if ($query && mysqli_num_rows($query) > 0) {
-      echo '<div class="event-grid">';
-      while ($row = mysqli_fetch_assoc($query)) {
-        $imgPath = getImagePath($row['E_Image']);
-        $title = htmlspecialchars($row['E_Title']);
-        $location = htmlspecialchars($row['E_Location']);
-        $detail = $row['E_Detail'] ?: "ไม่มีรายละเอียด";
-        $shortDetail = mb_strimwidth($detail, 0, 100, "...");
-        $startDate = date("d M", strtotime($row['E_StartDate']));
-        $endDate = date("d M", strtotime($row['E_EndDate']));
-    ?>
-        <div class="event-card">
-          <div class="event-img-box">
-            <img src="<?= $imgPath ?>" alt="<?= $title ?>" class="event-img">
-            <span class="ribbon">ใหม่</span>
-            <span class="tag">กิจกรรม</span>
-            <span class="price"><?= $startDate ?> - <?= $endDate ?></span>
+      if ($query && mysqli_num_rows($query) > 0) {
+        echo '<div class="event-grid">';
+        while ($row = mysqli_fetch_assoc($query)) {
+          $imgPath = getImagePath($row['E_Image']);
+          $title = htmlspecialchars($row['E_Title']);
+          $location = htmlspecialchars($row['E_Location']);
+          $detail = $row['E_Detail'] ?: "ไม่มีรายละเอียด";
+          $shortDetail = mb_strimwidth($detail, 0, 100, "...");
+          $startDate = date("d M", strtotime($row['E_StartDate']));
+          $endDate = date("d M", strtotime($row['E_EndDate']));
+      ?>
+          <div class="event-card">
+            <div class="event-img-box">
+              <img src="<?= $imgPath ?>" alt="<?= $title ?>" class="event-img">
+              <span class="ribbon">ใหม่</span>
+              <span class="tag">กิจกรรม</span>
+              <span class="price"><?= $startDate ?> - <?= $endDate ?></span>
+            </div>
+            <div class="event-content">
+              <h3><?= $title ?></h3>
+              <p class="location"><?= $location ?></p>
+              <p class="detail"><?= $shortDetail ?></p>
+            </div>
+            <div class="event-footer">
+              Post by : YJ Creating
+            </div>
           </div>
-          <div class="event-content">
-            <h3><?= $title ?></h3>
-            <p class="location"><?= $location ?></p>
-            <p class="detail"><?= $shortDetail ?></p>
-          </div>
-          <div class="event-footer">
-            Post by : YJ Creating
-          </div>
-        </div>
-    <?php
-      }
-      echo '</div>';
-    } else {
-      echo '<p class="text-center">⏳ รอ Owner อนุมัติ หรือยังไม่มีอีเว้นท์</p>';
-    }
-    ?>
-  </section>
-</main>
-
-<!-- Back to Top Button -->
-<div class="fab" id="fab">
-    <div class="fab-icon">↑</div>
-</div>
-
-<?php include __DIR__ . '/footer.php'; ?>
-
-<script>
-// Back to Top Button
-const fab = document.getElementById('fab');
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-        fab.classList.add('show');
-    } else {
-        fab.classList.remove('show');
-    }
-});
-
-fab.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-// Intersection Observer for scroll animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.animation = 'cardFadeIn 0.6s ease forwards';
+      <?php
         }
-    });
-}, observerOptions);
+        echo '</div>';
+      } else {
+        echo '<p class="text-center">⏳ รอ Owner อนุมัติ หรือยังไม่มีอีเว้นท์</p>';
+      }
+      ?>
+    </section>
+  </main>
 
-document.querySelectorAll('.event-card').forEach(card => {
-    observer.observe(card);
-});
-</script>
+  <!-- Back to Top Button -->
+  <div class="fab" id="fab">
+    <div class="fab-icon">↑</div>
+  </div>
+
+  <?php include __DIR__ . '/footer.php'; ?>
+
+  <script>
+    // Back to Top Button
+    const fab = document.getElementById('fab');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        fab.classList.add('show');
+      } else {
+        fab.classList.remove('show');
+      }
+    });
+
+    fab.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'cardFadeIn 0.6s ease forwards';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.event-card').forEach(card => {
+      observer.observe(card);
+    });
+  </script>
 
 </body>
+
 </html>

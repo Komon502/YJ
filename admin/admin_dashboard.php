@@ -7,8 +7,9 @@ include __DIR__ . '/auth.php'; // ✅ ต้อง login ก่อนถึง�
     <meta charset="UTF-8">
     <title>Admin Dashboard - YJ Creating</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="public/style.css">
     <style>
-        body { background:#000; color:#fff; font-family:'Prompt', sans-serif; }
+        body { background:#000; color:#fff; }
         .container { max-width:900px; margin:60px auto; text-align:center; }
         h1 { color:#ff5733; margin-bottom:20px; }
         .menu { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; margin-top:30px; }

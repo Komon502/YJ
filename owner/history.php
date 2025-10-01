@@ -17,6 +17,7 @@ $result = mysqli_query($conn, "SELECT * FROM history ORDER BY created_at DESC");
   <title>ประวัติการอนุมัติ</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
   <style>
     :root {
       --bg-main: #0a0a0a;

@@ -1,5 +1,5 @@
 <?php include 'navbar.php'; ?>
-
+<link rel="stylesheet" href="public/style.css">
 <style>
 * {
     margin: 0;
