@@ -16,119 +16,287 @@ $result = mysqli_query($conn, "SELECT * FROM course WHERE status='pending' ORDER
   <meta charset="UTF-8">
   <title>ตรวจสอบคอร์ส (Pending)</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #000;
-      --panel: #101010;
-      --panel-2: #161616;
-      --text: #ffa726;
-      /* ส้ม */
-      --muted: #d68a1e;
-      /* ส้มอ่อน */
-      --line: #2a2a2a;
+      --bg-main: #0a0a0a;
+      --bg-gradient: linear-gradient(135deg, #0a0a0a 0%, #1a0505 100%);
+      --card-bg: #1c1c1c;
+      --card-border: #2d2d2d;
+      --accent-red: #ef4444;
+      --accent-red-dark: #dc2626;
+      --text-primary: #f5f5f5;
+      --text-secondary: #d1d5db;
+      --text-muted: #9ca3af;
+      --success: #10b981;
+      --warning: #f59e0b;
     }
 
     * {
-      font-family: 'Prompt', sans-serif
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      background: var(--bg);
-      color: var(--text)
+      background: var(--bg-gradient);
+      color: var(--text-primary);
+      font-family: 'Prompt', sans-serif;
+      min-height: 100vh;
+      padding: 30px 20px;
+      font-size: 15px;
     }
 
     .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 28px
+      max-width: 1500px;
+      margin: 0 auto;
     }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      color: #ff7043 !important;
-      /* 🎨 สีส้มสด統一 */
-      font-weight: bold;
+    .header-section {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
     }
 
-    .text-warning {
-      color: #ff7043 !important;
-      /* override bootstrap */
+    .header-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-red) 0%, var(--accent-red-dark) 100%);
+    }
+
+    h1 {
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 2.2rem;
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    h1::before {
+      content: '📘';
+      font-size: 2.8rem;
+      filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.3));
     }
 
     .btn-back {
-      background: #6c757d;
-      color: #fff;
-      border: 0
+      background: linear-gradient(135deg, #3f3f46 0%, #27272a 100%);
+      color: var(--text-primary);
+      border: 1px solid var(--card-border);
+      padding: 11px 26px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
     }
 
     .btn-back:hover {
-      background: #444
+      background: linear-gradient(135deg, #52525b 0%, #3f3f46 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.25);
+      color: var(--text-primary);
+    }
+
+    .table-container {
+      background: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
 
     table {
-      background: var(--panel);
-      border-radius: 12px;
-      overflow: hidden;
-      border-color: var(--line)
+      margin: 0;
+      width: 100%;
+      font-size: 15px;
     }
 
     thead th {
-      background: var(--panel-2);
-      color: var(--text);
-      border-color: var(--line);
-      text-align: center
+      background: linear-gradient(135deg, #262626 0%, #1a0505 100%);
+      color: #ffffff !important;
+      border: none;
+      border-bottom: 2px solid var(--accent-red);
+      text-align: center;
+      padding: 20px 14px;
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    table:not(caption)>* {
+      color: #ffffff;
     }
 
     tbody td {
-      border-color: var(--line);
-      color: #f0f0f0;
+      background: var(--card-bg);
+      border: none;
+      border-bottom: 1px solid var(--card-border);
+      color: var(--text-secondary);
       text-align: center;
-      vertical-align: middle
+      vertical-align: middle;
+      padding: 18px 14px;
+      font-size: 15px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    tbody tr {
+      transition: all 0.2s ease;
+    }
+
+    tbody tr:hover {
+      background: #232323;
+    }
+
+    tbody tr:hover td {
+      background: #232323;
+      color: var(--text-primary);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
     }
 
     .badge {
-      font-size: .85rem
+      font-size: 14px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
     .badge-pending {
-      background: #ffe082;
-      color: #000
-    }
-
-    .card-like {
-      background: var(--panel-2);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 18px;
-      margin-bottom: 18px
+      background: linear-gradient(135deg, var(--warning) 0%, #ea580c 100%);
+      color: #000;
     }
 
     img.thumb {
-      width: 100px;
-      height: 70px;
+      width: 120px;
+      height: 85px;
       object-fit: cover;
-      border-radius: 6px;
-      border: 1px solid var(--line)
+      border-radius: 12px;
+      border: 2px solid var(--card-border);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     }
 
-    a,
-    a:visited {
-      color: #fff
+    img.thumb:hover {
+      transform: scale(1.12);
+      border-color: var(--accent-red);
+      box-shadow: 0 6px 24px rgba(239, 68, 68, 0.4);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+      border: none;
+      color: #fff;
+      padding: 9px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-success:hover {
+      background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.5);
+      color: #fff;
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-red-dark) 100%);
+      border: none;
+      color: #fff;
+      padding: 9px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-danger:hover {
+      background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(239, 68, 68, 0.5);
+      color: #fff;
+    }
+
+    .detail-text {
+      text-align: left !important;
+      color: var(--text-muted) !important;
+      font-size: 14px !important;
+      line-height: 1.6 !important;
+      max-width: 300px;
+      font-weight: 400 !important;
+    }
+
+    .title-text {
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .id-text {
+      color: var(--accent-red);
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .price-text {
+      color: var(--success);
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .table-container {
+        overflow-x: auto;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
     }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <div class="card-like">
-      <h1>📘 ตรวจสอบคอร์ส (Pending)</h1>
-      <a href="owner_dashboard.php" class="btn btn-back btn-sm mb-3">⬅ กลับ Dashboard</a>
+    <div class="header-section">
+      <h1>ตรวจสอบคอร์ส (Pending)</h1>
+      <a href="owner_dashboard.php" class="btn btn-back">
+        <span>⬅</span> กลับ Dashboard
+      </a>
+    </div>
 
-      <table class="table table-bordered align-middle">
+    <div class="table-container">
+      <table class="table align-middle">
         <thead>
           <tr>
             <th>ID</th>
@@ -146,23 +314,23 @@ $result = mysqli_query($conn, "SELECT * FROM course WHERE status='pending' ORDER
         <tbody>
           <?php while ($row = mysqli_fetch_assoc($result)) { ?>
             <tr>
-              <td><?= $row['CourseID'] ?></td>
+              <td class="id-text"><?= $row['CourseID'] ?></td>
               <td>
                 <?php if (!empty($row['Image'])): ?>
-                  <img class="thumb" src="../uploads/<?= htmlspecialchars($row['Image']) ?>">
+                  <img class="thumb" src="../uploads/<?= htmlspecialchars($row['Image']) ?>" alt="Course">
                 <?php else: ?>
-                  <img class="thumb" src="../image/no-image.png">
+                  <img class="thumb" src="../image/no-image.png" alt="No Image">
                 <?php endif; ?>
               </td>
-              <td><?= htmlspecialchars($row['CourseName']) ?></td>
+              <td class="title-text"><?= htmlspecialchars($row['CourseName']) ?></td>
               <td><?= htmlspecialchars($row['Category']) ?></td>
-              <td style="max-width:260px; text-align:left"><?= nl2br(htmlspecialchars($row['Description'])) ?></td>
+              <td class="detail-text"><?= nl2br(htmlspecialchars($row['Description'])) ?></td>
               <td><?= htmlspecialchars($row['Duration']) ?></td>
-              <td><?= number_format($row['Fee'], 2) ?> บาท</td>
+              <td class="price-text"><?= number_format($row['Fee'], 2) ?> บาท</td>
               <td><?= htmlspecialchars($row['Teacher']) ?></td>
               <td><span class="badge badge-pending">⏳ <?= ucfirst($row['status']) ?></span></td>
               <td>
-                <a href="approve.php?type=course&id=<?= $row['CourseID'] ?>&action=approve" class="btn btn-success btn-sm">✅ Approve</a>
+                <a href="approve.php?type=course&id=<?= $row['CourseID'] ?>&action=approve" class="btn btn-success btn-sm mb-1">✅ Approve</a>
                 <a href="approve.php?type=course&id=<?= $row['CourseID'] ?>&action=disapprove" class="btn btn-danger btn-sm">❌ Disapprove</a>
               </td>
             </tr>
