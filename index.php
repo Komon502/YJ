@@ -1,5 +1,4 @@
 <?php
-// เชื่อมต่อ navbar และฐานข้อมูล
 include __DIR__ . '/navbar.php';
 include __DIR__ . '/db_connect.php';
 
@@ -11,68 +10,87 @@ function getImagePath($fileName) {
   return "image/no-image.png";
 }
 ?>
-<!-- ================= CSS ================= -->
-<link rel="stylesheet" href="public/style.css">       <!-- Global style -->
-<link rel="stylesheet" href="public/index_style.css"> <!-- เฉพาะหน้า index -->
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YJ Creating - Home</title>
+  <link rel="stylesheet" href="public/style.css">
+  <link rel="stylesheet" href="public/index_style.css">
+</head>
+<body>
 
-<!-- ================= HERO ================= -->
-<section class="hero">
-  <div class="hero-content">
-    <h1>YJ Creating</h1>
-    <p>▶️ มาเรียนรู้แบบสนุก ๆ สร้างผลงาน และเติมประสบการณ์จริง ✨</p>
-  </div>
-</section>
+<main>
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <h1>YJ Creating</h1>
+      <p>▶️ มาเรียนรู้แบบสนุก ๆ สร้างผลงาน และเติมประสบการณ์จริง ✨</p>
+      <a href="course.php" class="cta-btn">ดูคอร์ส</a>
+    </div>
+  </section>
 
-<!-- ================= EVENT SECTION ================= -->
-<section class="container my-5">
-  <h2 class="text-center mb-4" style="color:#ff5733;">📅 Event</h2>
-  <?php
-  $query = mysqli_query($conn, "SELECT * FROM event 
-                                WHERE E_EndDate >= NOW() 
-                                  AND status='approved'
-                                ORDER BY E_StartDate ASC 
-                                LIMIT 6");
+  <!-- Event Section -->
+  <section class="container my-5">
+    <h2>📅 Event</h2>
+    <?php
+    $query = mysqli_query($conn, "SELECT * FROM event 
+                                  WHERE E_EndDate >= NOW() 
+                                    AND status='approved'
+                                  ORDER BY E_StartDate ASC 
+                                  LIMIT 6");
 
-  if (mysqli_num_rows($query) > 0) {
-    echo '<div class="event-grid">';
-    while ($row = mysqli_fetch_assoc($query)) {
-      $imgPath = getImagePath($row['E_Image']);
-  ?>
-      <div class="event-card">
-        <div class="event-img-box">
-          <img src="<?= $imgPath ?>" alt="event-image" class="event-img">
-          <span class="ribbon">ใหม่</span>
-          <span class="tag">กิจกรรม</span>
-          <span class="price">
-            <?= date("d M", strtotime($row['E_StartDate'])) ?> -
-            <?= date("d M", strtotime($row['E_EndDate'])) ?>
-          </span>
+    if ($query && mysqli_num_rows($query) > 0) {
+      echo '<div class="event-grid">';
+      while ($row = mysqli_fetch_assoc($query)) {
+        $imgPath = getImagePath($row['E_Image']);
+        $title = htmlspecialchars($row['E_Title']);
+        $location = htmlspecialchars($row['E_Location']);
+        $detail = $row['E_Detail'] ?: "ไม่มีรายละเอียด";
+        $shortDetail = mb_strimwidth($detail, 0, 100, "...");
+        $startDate = date("d M", strtotime($row['E_StartDate']));
+        $endDate = date("d M", strtotime($row['E_EndDate']));
+    ?>
+        <div class="event-card">
+          <div class="event-img-box">
+            <img src="<?= $imgPath ?>" alt="<?= $title ?>" class="event-img">
+            <span class="ribbon">ใหม่</span>
+            <span class="tag">กิจกรรม</span>
+            <span class="price"><?= $startDate ?> - <?= $endDate ?></span>
+          </div>
+          <div class="event-content">
+            <h3><?= $title ?></h3>
+            <p class="location"><?= $location ?></p>
+            <p class="detail"><?= $shortDetail ?></p>
+          </div>
+          <div class="event-footer">
+            จัดโดย: YJ Creating
+          </div>
         </div>
-        <div class="event-content">
-          <h3><?= htmlspecialchars($row['E_Title']) ?></h3>
-          <p class="location"><?= htmlspecialchars($row['E_Location']) ?></p>
-          <p class="detail">
-            <?= mb_strimwidth($row['E_Detail'] ?: "ไม่มีรายละเอียด", 0, 60, "..."); ?>
-          </p>
-        </div>
-        <div class="event-footer"></div>
-      </div>
-  <?php
+    <?php
+      }
+      echo '</div>';
+    } else {
+      echo '<p class="text-center text-muted">⏳ รอ Owner อนุมัติ หรือยังไม่มีอีเว้นท์</p>';
     }
-    echo '</div>';
-  } else {
-    echo "<p class='text-center text-muted'>⏳ รอ Owner อนุมัติ หรือยังไม่มีอีเว้นท์</p>";
-  }
-  ?>
-</section>
+    ?>
+  </section>
+</main>
 
-<!-- ================= FOOTER ================= -->
 <?php include __DIR__ . '/footer.php'; ?>
 
-<!-- ================= JS Random Background ================= -->
+<!-- Random Background Script -->
 <script>
-  const hero = document.querySelector(".hero");
-  const bgClasses = ["hero-bg1", "hero-bg2", "hero-bg3", "hero-bg"];
-  const randomBg = bgClasses[Math.floor(Math.random() * bgClasses.length)];
-  hero.classList.add(randomBg);
+document.addEventListener('DOMContentLoaded', function() {
+  const hero = document.getElementById('hero');
+  if (hero) {
+    const bgClasses = ['hero-bg1', 'hero-bg2', 'hero-bg3'];
+    const randomBg = bgClasses[Math.floor(Math.random() * bgClasses.length)];
+    hero.classList.add(randomBg);
+  }
+});
 </script>
+
+</body>
+</html>

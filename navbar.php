@@ -1,9 +1,23 @@
 <header>
-  <link rel="stylesheet" href="public/navbar.css">
+  <link rel="stylesheet" href="public/navbar.css?v=<?= time() ?>">
+  
+  <!-- Force Logo Size -->
+  <style>
+    .navbar .logo img,
+    .logo img,
+    img[alt*="YJ Logo"] {
+      height: 35px !important;
+      max-height: 35px !important;
+      width: auto !important;
+      max-width: 100px !important;
+      object-fit: contain !important;
+    }
+  </style>
+  
   <div class="navbar">
     <div class="logo">
       <a href="index.php">
-        <img src="image/YJ.png" alt="YJ Logo">
+        <img src="image/YJ.png" alt="YJ Logo" style="height: 35px !important; max-height: 35px !important; width: auto !important; max-width: 100px !important; object-fit: contain !important;">
       </a>
     </div>
 
